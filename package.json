@@ -1,0 +1,32 @@
+{
+  "name": "simpledimple",
+  "version": "1.0.0",
+  "description": "Dimple-js Simplified",
+  "main": "dist/simpledimple.latest.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nagarajanchinnasamy/simpledimple.git"
+  },
+  "keywords": [
+    "dimple",
+    "d3",
+    "visualization",
+    "chart",
+    "javascript"
+  ],
+  "author": "Nagarajan Chinnasamy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nagarajanchinnasamy/simpledimple/issues"
+  },
+  "homepage": "https://github.com/nagarajanchinnasamy/simpledimple#readme",
+  "dependencies": {
+    "d3": "^3.5.2",
+    "dimple-js": "^2.1.4"
+  },
+  "devDependencies": {
+    }
+}

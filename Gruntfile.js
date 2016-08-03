@@ -93,7 +93,7 @@ module.exports = function (grunt) {
                 distPath: '/dist/',
                 version: 'v<%= pkg.version %>',
                 d3version: 'v<%= pkg.dependencies.d3 %>',
-                dimpleversion: 'v<%= pkg.dependencies.dimple-js %>',
+                dimpleversion: 'v<%= pkg.dependencies.dimple %>',
                 scriptTag: '{scriptDependencies}',
                 header: "<!----------------------------------------------------------------->\n" +
                         "<!-- AUTOMATICALLY GENERATED CODE - PLEASE EDIT TEMPLATE INSTEAD -->\n" +
@@ -106,7 +106,7 @@ module.exports = function (grunt) {
                 frameworks: ['jasmine', 'requirejs'],
                 files: [
                     'test/test-main.js',
-                    { pattern: 'lib/*.min.js', included: false },
+                    { pattern: 'lib/**/*.min.js', included: false },
                     { pattern: 'tmp/*.js', included: false },
                     { pattern: 'test/**/*.spec.js', included: false }
                 ],
@@ -151,8 +151,9 @@ module.exports = function (grunt) {
     // Propogate version into relevant files
     grunt.registerMultiTask('prop', 'Propagate Versions.', function () {
         function generateScriptElements(options, indent) {
-            var d3Path = "{libFolder}d3.{d3version}.js",
-                dimplePath = "{libFolder}dimple.{dimpleversion}.js",
+            console.log(">>>>>>>>>>>>>>>>>>>>>>>> generateScriptElements <<<<<<<<<<<<<<<<<<<<<<<<<");
+            var d3Path = "{libFolder}/d3/d3.{d3version}.js",
+                dimplePath = "{libFolder}/dimple/dimple.{dimpleversion}.js",
                 simpledimplePath = "{distFolder}simpledimple.{version}.js",
                 createScriptElement = function (path) {
                     var scriptElement = '<script src="{path}"></script>';
@@ -187,13 +188,16 @@ module.exports = function (grunt) {
             return createScriptElement(d3Path) + "\n" + tab + createScriptElement(dimplePath) + "\n" + tab + createScriptElement(simpledimplePath);
         }
 
-        var options = this.options(),
-            outPath = options.exampleOutputPath,
-            header = options.header,
-            scriptTag = options.scriptTag,
-            scripts = generateScriptElements(options);
+        var options, outPath, header, scriptTag, scripts;
+        options = this.options();
+        console.log(">>>>>>>>>>>>>>>>>>>>>>>> options() <<<<<<<<<<<<<<<<<<<<<<<<<");
+        outPath = options.exampleOutputPath;
+        header = options.header;
+        scriptTag = options.scriptTag;
+        scripts = generateScriptElements(options);
 
         this.files.forEach(function (f) {
+            console.log(">>>>>>>>>>>>>>>>>>>>>>>> forEach <<<<<<<<<<<<<<<<<<<<<<<<<");
             f.src.filter(function (filepath) {
                 var result = true;
                 if (!grunt.file.exists(filepath)) {
@@ -202,6 +206,7 @@ module.exports = function (grunt) {
                 }
                 return result;
             }).map(function (filepath) {
+                console.log(">>>>>>>>>>>>>>>>>>>>>>>> map <<<<<<<<<<<<<<<<<<<<<<<<<");
                 // Read file source.
                 var src = grunt.file.read(filepath);
 

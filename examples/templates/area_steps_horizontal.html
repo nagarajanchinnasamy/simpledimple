@@ -4,17 +4,17 @@
 <div id="chartContainer">
   {scriptDependencies}
   <script type="text/javascript">
-    var svg = dimple.newSvg("#chartContainer", 590, 400);
+    var chartConfig = {
+        width: 590, height: 400,
+        bounds: {60, 30, 305, 305},
+        axis: [
+            {position: x, categoryFields: "Month", orderRules:[{ordering: "Date"}]},
+            {position: y, measure: "Unit Sales"}],
+        series [{plot: "area", interpolation: "step", lineWeight: 1}]
+    };
     d3.tsv("/data/example_data.tsv", function (data) {
-      data = dimple.filterData(data, "Owner", ["Aperture", "Black Mesa"])
-      var myChart = new dimple.chart(svg, data);
-      myChart.setBounds(60, 30, 505, 305);
-      var x = myChart.addCategoryAxis("x", "Month");
-      x.addOrderRule("Date");
-      myChart.addMeasureAxis("y", "Unit Sales");
-      var s = myChart.addSeries(null, dimple.plot.area);
-      s.interpolation = "step";
-      s.lineWeight = 1;
+        data = dimple.filterData(data, "Owner", ["Aperture", "Black Mesa"])
+      var myChart = new simpledimple.chart(chartConfig, data);
       myChart.draw();
     });
   </script>

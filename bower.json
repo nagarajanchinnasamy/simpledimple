@@ -1,0 +1,28 @@
+{
+  "name": "simpledimple",
+  "description": "Dimple-js Simplified",
+  "main": "dist/simpledimple.latest.js",
+  "authors": [
+    "Nagarajan Chinnasamy"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "dimple",
+    "d3",
+    "visualization",
+    "chart",
+    "javascript"
+  ],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "d3": "3.5.2"
+    "dimple": "2.1.4",
+  }
+}

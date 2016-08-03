@@ -6,11 +6,11 @@
   <script type="text/javascript">
     var chartConfig = {
         width: 590, height: 400,
-        bounds: {60, 30, 305, 305},
+        bounds: {x: 60, y: 30, width: 305, height: 305},
         axis: [
-            {position: x, categoryFields: "Month", orderRules:[{ordering: "Date"}]},
-            {position: y, measure: "Unit Sales"}],
-        series [{plot: "area", interpolation: "step", lineWeight: 1}]
+            {position: "x", categoryFields: "Month", orderRules:[{ordering: "Date"}]},
+            {position: "y", measure: "Unit Sales"}],
+        series: [{plot: "area", interpolation: "step", lineWeight: 1}]
     };
     d3.tsv("/data/example_data.tsv", function (data) {
         data = dimple.filterData(data, "Owner", ["Aperture", "Black Mesa"])

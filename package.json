@@ -24,9 +24,7 @@
   },
   "homepage": "https://github.com/nagarajanchinnasamy/simpledimple#readme",
   "dependencies": {
-    "d3": "^3.5.2",
-    "dimple-js": "^2.1.4"
+    "dimple": "2.1.4"
   },
-  "devDependencies": {
-    }
+  "devDependencies": {}
 }

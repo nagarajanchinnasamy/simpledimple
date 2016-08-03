@@ -89,11 +89,10 @@ module.exports = function (grunt) {
             },
             options: {
                 exampleOutputPath: 'examples/',
-                libPath: '/lib/',
+                d3Path: '../bower_components/d3/d3.min.js',
+                dimplePath: '../bower_components/dimple/dist/dimple.v<%= pkg.dependencies.dimple %>.min.js',
                 distPath: '/dist/',
                 version: 'v<%= pkg.version %>',
-                d3version: 'v<%= pkg.dependencies.d3 %>',
-                dimpleversion: 'v<%= pkg.dependencies.dimple %>',
                 scriptTag: '{scriptDependencies}',
                 header: "<!----------------------------------------------------------------->\n" +
                         "<!-- AUTOMATICALLY GENERATED CODE - PLEASE EDIT TEMPLATE INSTEAD -->\n" +
@@ -152,18 +151,16 @@ module.exports = function (grunt) {
     grunt.registerMultiTask('prop', 'Propagate Versions.', function () {
         function generateScriptElements(options, indent) {
             console.log(">>>>>>>>>>>>>>>>>>>>>>>> generateScriptElements <<<<<<<<<<<<<<<<<<<<<<<<<");
-            var d3Path = "{libFolder}/d3/d3.{d3version}.js",
-                dimplePath = "{libFolder}/dimple/dimple.{dimpleversion}.js",
-                simpledimplePath = "{distFolder}simpledimple.{version}.js",
-                createScriptElement = function (path) {
+            var createScriptElement = function (path) {
                     var scriptElement = '<script src="{path}"></script>';
                     return scriptElement.split("{path}").join(path);
                 },
-                libPath = options.libPath,
+                d3Path = options.d3Path,
+                dimplePath = options.dimplePath,
                 distPath = options.distPath,
                 version = options.version,
-                d3version = options.d3version,
-                dimpleversion = options.dimpleversion,
+                simpledimplePath = "..{distFolder}simpledimple.{version}.js",
+
                 tab = "",
                 i;
 
@@ -174,15 +171,11 @@ module.exports = function (grunt) {
                 tab += " ";
             }
 
-            d3Path = d3Path.split("{libFolder}").join(libPath);
-            d3Path = d3Path.split("{d3version}").join(d3version);
-            dimplePath = dimplePath.split("{libFolder}").join(libPath);
-            dimplePath = dimplePath.split("{dimpleversion}").join(dimpleversion);
             simpledimplePath = simpledimplePath.split("{distFolder}").join(distPath);
             simpledimplePath = simpledimplePath.split("{version}").join(version);
 
-            grunt.log.writeln("\nUsing d3: " + d3Path + " with " + d3version);
-            grunt.log.writeln("\nUsing dimple: " + dimplePath + " with " + dimpleversion);
+            grunt.log.writeln("\nUsing d3: " + d3Path);
+            grunt.log.writeln("\nUsing dimple: " + dimplePath);
             grunt.log.writeln("\nUsing simpledimple: " + simpledimplePath + " with " + version + "\n");
 
             return createScriptElement(d3Path) + "\n" + tab + createScriptElement(dimplePath) + "\n" + tab + createScriptElement(simpledimplePath);

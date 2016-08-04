@@ -3,43 +3,27 @@ module.exports = function (grunt) {
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        concat: {
-            dist: {
-                src: [
-                    "src/begin.js",
-                    "src/objects/chart/begin.js",
-                    "src/objects/chart/methods/*.js",
-                    "src/objects/chart/end.js",
-                    "src/methods/*.js",
-                    "src/end.js"
-                ],
-                dest: 'dist/<%= pkg.name %>.v<%= pkg.version %>.js'
-            },
-            test: {
-                src: '<%= concat.dist.src %>',
-                dest: 'tmp/<%= pkg.name %>.js'
-            }
-        },
         uglify: {
             dist: {
                 files: {
-                    'dist/<%= pkg.name %>.v<%= pkg.version %>.min.js': ['<%= concat.dist.dest %>']
+                    'dest/<%= pkg.name %>.v<%= pkg.version %>.min.js': ['src/<% pkg.name %>.js']
                 }
             }
         },
         copy: {
             main: {
                 files: [
+                    { src: '<%= pkg.name %>.js', dest: 'dist/<%= pkg.name %>.v<%= pkg.version %>.js'},
                     { src: 'dist/<%= pkg.name %>.v<%= pkg.version %>.min.js', dest: 'dist/<%= pkg.name %>.latest.min.js'},
                     { src: 'dist/<%= pkg.name %>.v<%= pkg.version %>.js', dest: 'dist/<%= pkg.name %>.latest.js'}
                 ]
             }
         },
         connect: {
-            server: {
+            target: {
                 options: {
                     port: 3001,
-                    base: '.'
+                    keepalive: true
                 }
             }
         },
@@ -54,7 +38,7 @@ module.exports = function (grunt) {
                 src: [
                     'Gruntfile.js',
                     'test/**/*.spec.js',
-                    'dist/<%= pkg.name %>.v<%= pkg.version %>.js'
+                    'src/<%= pkg.name %>.js'
                 ],
                 directives: {
                     browser: true,
@@ -214,7 +198,7 @@ module.exports = function (grunt) {
     });
 
     // Default tasks
-    grunt.registerTask('default', ['concat', 'jslint', 'uglify', 'copy', 'connect', 'prop']);
+    grunt.registerTask('default', ['jslint', 'uglify', 'copy', 'prop', 'connect']);
     grunt.registerTask('test:unit', ['concat:test', 'karma:unit']);
     grunt.registerTask('test', ['karma:continuous:start', 'watch']);
 

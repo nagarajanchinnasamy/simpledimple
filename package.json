@@ -23,9 +23,18 @@
     "url": "https://github.com/nagarajanchinnasamy/simpledimple/issues"
   },
   "homepage": "https://github.com/nagarajanchinnasamy/simpledimple#readme",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-connect": "^1.0.2",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-uglify": "^2.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-jslint": "^1.1.14",
+    "requirejs": "^2.2.0"
+  },
   "dependencies": {
     "d3": "3.4.8",
     "dimple": "2.1.4"
-  },
-  "devDependencies": {}
+  }
 }

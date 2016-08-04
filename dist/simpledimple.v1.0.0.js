@@ -1,6 +1,6 @@
-// Copyright: 2015 AlignAlytics
-// License: "https://github.com/PMSI-AlignAlytics/simpledimple/blob/master/MIT-LICENSE.txt"
-// Source: /src/objects/begin.js
+// Copyright: 2016 Nagarajan Chinnsamy, Mindtree and Other Contributors
+// License: https://github.com/nagarajanchinnasamy/simpledimple/blob/master/LICENSE
+
 
 // Wrap all application code in a self-executing function which handles optional AMD/CommonJS publishing
 (function (context, simpledimple) {
@@ -8,7 +8,6 @@
 
     if (typeof exports === "object") {
         // CommonJS
-        console.log(">>>>>>>>>>>>>>>>>>>>CommonJS<<<<<<<<<<<<<<<<<<<<<");
         module.exports = simpledimple(require('d3'), require('dimple'));
     } else {
         if (typeof define === "function" && define.amd) {
@@ -49,16 +48,10 @@
         version: "1.0.0"
     };
 
-    // Copyright: 2015 AlignAlytics
-    // License: "https://github.com/PMSI-AlignAlytics/dimple/blob/master/MIT-LICENSE.txt"
-    // Source: /src/objects/chart/begin.js
     // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.chart
     simpledimple.chart = function (parentSelector, chartConfig, data) {
         var bounds, noFormats, i, n, axis, series, legend, aClass, colors, color, margins;
 
-        // Copyright: 2015 AlignAlytics
-        // License: "https://github.com/PMSI-AlignAlytics/dimple/blob/master/MIT-LICENSE.txt"
-        // Source: /src/objects/chart/methods/addAxis.js
         // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.chart#wiki-addAxis
         this.addAxis  = function (config) {
             var isInt, dimpleAxis, k, nRules, rule,
@@ -193,8 +186,6 @@
             return dimpleAxis;
         };
 
-
-        // Source: /src/objects/chart/methods/addLegend.js
         // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.chart#wiki-addLegend
         this.addLegend = function (config) {
             var cSeries, l, nCSeries, lSeries, dimpleLegend;
@@ -220,9 +211,6 @@
             return dimpleLegend;
         };
 
-        // Copyright: 2015 AlignAlytics
-        // License: "https://github.com/PMSI-AlignAlytics/dimple/blob/master/MIT-LICENSE.txt"
-        // Source: /src/objects/chart/methods/addSeries.js
         // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.chart#wiki-addSeries
         this.addSeries = function (config) {
             var dimpleSeries, seriesAxes, nSeriesAxes, j, nRules, rule, nHandlers, handler,
@@ -343,10 +331,6 @@
             return dimpleSeries;
         };
 
-
-        // Copyright: 2015 AlignAlytics
-        // License: "https://github.com/PMSI-AlignAlytics/dimple/blob/master/MIT-LICENSE.txt"
-        // Source: /src/objects/chart/methods/draw.js
         // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.chart#wiki-draw
         this.draw = function (duration, noDataChange) {
             this.chart.draw(duration, noDataChange);
@@ -355,9 +339,6 @@
 
         };
 
-        // Copyright: 2015 AlignAlytics
-        // License: "https://github.com/PMSI-AlignAlytics/dimple/blob/master/MIT-LICENSE.txt"
-        // Source: /src/objects/chart/methods/setStoryboard.js
         // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.chart#wiki-setStoryboard
         this.setStoryboard = function (config) {
             // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.storyboard#wiki-onTick
@@ -475,9 +456,6 @@
             this.chart.setMargins(margins.x, margins.y, margins.width, margins.height);
         }
     };
-    // End dimple.chart
-
-
 
     return simpledimple;
 }));

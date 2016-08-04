@@ -8,6 +8,7 @@
 
     if (typeof exports === "object") {
         // CommonJS
+        console.log(">>>>>>>>>>>>>>>>>>>>CommonJS<<<<<<<<<<<<<<<<<<<<<");
         module.exports = simpledimple(require('d3'), require('dimple'));
     } else {
         if (typeof define === "function" && define.amd) {
@@ -34,7 +35,7 @@
                     throw "simpledimple requires dimple to run.  Are you missing a reference to the dimple library?";
                 }
             } else {
-                context.simpledimple = simpledimple(context.d3);
+                context.simpledimple = simpledimple(context.d3, context.dimple);
             }
         }
     }
@@ -45,7 +46,5 @@
 
     // Create the stub object
     var simpledimple = {
-        version: "1.0.0",
-        plot: {},
-        aggregateMethod: {}
+        version: "1.0.0"
     };

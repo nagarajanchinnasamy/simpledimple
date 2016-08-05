@@ -9,19 +9,12 @@
   <script src="../bower_components/dimple/dist/dimple.v2.1.4.min.js"></script>
   <script src="../dist/simpledimple.v1.0.0.js"></script>
   <script type="text/javascript">
-    var chartConfig = {
-        width: 590, height: 400,
-        bounds: {x: 70, y: 30, width: 340, height: 330},
-        axes: [
-            {position: "x", categoryFields: ["Owner", "Month"], groupOrderRules:[{ordering: "Date"}]},
-            {position: "y", measure: "Unit Sales", showPercent: true}],
-        series: [{categoryFields: "SKU", plot: "area", interpolation: "step", lineWeight: 1, barGap: 0.05}],
-        legends: [{x: 430, y: 20, width: 100, height: 300, horizontalAlign: "left"}]
-    };
     d3.tsv("/data/example_data.tsv", function (data) {
         data = dimple.filterData(data, "Owner", ["Aperture", "Black Mesa"])
-      var myChart = new simpledimple.chart("#chartContainer", chartConfig, data);
-      myChart.draw();
+        d3.json("chartconfig/area_steps_horizontal_grouped_100pct.json", function(chartConfig) {
+            var myChart = new simpledimple.chart("#chartContainer", chartConfig, data);
+            myChart.draw();
+        });
     });
   </script>
 </div>

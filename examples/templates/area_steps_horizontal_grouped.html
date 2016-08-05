@@ -4,18 +4,12 @@
 <div id="chartContainer">
   {scriptDependencies}
   <script type="text/javascript">
-    var chartConfig = {
-        width: 590, height: 400,
-        bounds: {x: 60, y: 30, width: 500, height: 330},
-        axes: [
-            {position: "x", categoryFields: ["Owner", "Month"], groupOrderRules:[{ordering: "Date"}]},
-            {position: "y", measure: "Unit Sales"}],
-        series: [{categoryFields: "Owner", plot: "area", interpolation: "step", lineWeight: 1, barGap: 0.05}]
-    };
     d3.tsv("/data/example_data.tsv", function (data) {
         data = dimple.filterData(data, "Owner", ["Aperture", "Black Mesa"])
-        var myChart = new simpledimple.chart("#chartContainer", chartConfig, data);
-        myChart.draw();
+        d3.json("chartconfig/area_steps_horizontal_grouped.json", function(chartConfig) {
+            var myChart = new simpledimple.chart("#chartContainer", chartConfig, data);
+            myChart.draw();
+        });
     });
   </script>
 </div>

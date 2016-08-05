@@ -1,0 +1,40 @@
+{
+    "width": 590,
+    "height": 400,
+    "bounds": {
+        "x": 70,
+        "y": 30,
+        "width": 340,
+        "height": 330
+    },
+    "axes": [
+        {
+            "position": "x",
+            "categoryFields": [Uner", "Month"],i
+            "groupOrderRules": [{ordering: "Date"}]
+        },
+        {
+            "position": "y",
+            "measure": "Unit Sales",
+            "showPercent": true
+        }
+    ],
+    "series": [
+        {
+            "categoryFields": "SKU",
+            "plot": "area",
+            "interpolation": "step",
+            "lineWeight": 1,
+            "barGap": 0.05
+        }
+    ],
+    "legends": [
+        {
+            "x": 430,
+            "y": 20,
+            "width": 100,
+            "height": 300,
+            "horizontalAlign": "left"
+        }
+    ]
+}

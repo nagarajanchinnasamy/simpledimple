@@ -1,0 +1,28 @@
+{
+	"width": 590,
+	"height": 400,
+        "bounds": {
+		"x": 70,
+		"y": 30,
+		"width": 505,
+		"height": 305
+	},
+        "axes": [
+		{
+			"position": "x",
+			"categoryFields": "Month",
+			"orderRules":[{"ordering": "Date"}]
+		},
+		{
+			"position": "y",
+			"measure": "Unit Sales"
+		}
+	],
+        "series": [
+		{
+			"plot": "area",
+			"interpolation": "step",
+			"lineWeight": 1
+		}
+	]
+}

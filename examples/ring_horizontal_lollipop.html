@@ -1,0 +1,23 @@
+<!----------------------------------------------------------------->
+<!-- AUTOMATICALLY GENERATED CODE - PLEASE EDIT TEMPLATE INSTEAD -->
+<!----------------------------------------------------------------->
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<div id="chartContainer">
+  <script src="../bower_components/d3/d3.min.js"></script>
+  <script src="../bower_components/dimple/dist/dimple.v2.1.4.min.js"></script>
+  <script src="../dist/simpledimple.v1.0.0.js"></script>
+  <script type="text/javascript">
+    d3.tsv("/data/example_data.tsv", function (data) {
+        data = dimple.filterData(data, "Date", [
+          "01/07/2012", "01/08/2012", "01/09/2012",
+          "01/10/2012", "01/11/2012", "01/12/2012"]);
+        d3.json("chartconfig/ring_horizontal_lollipop.json", function(chartConfig) {
+            var myChart = new simpledimple.chart("#chartContainer", chartConfig, data);
+            myChart.draw();
+        });
+    });
+  </script>
+</div>
+</html>

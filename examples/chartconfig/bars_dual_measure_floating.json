@@ -1,0 +1,36 @@
+{
+    "width": 590,
+    "height": 400,
+        "bounds": {
+        "x": 60,
+        "y": 30,
+        "width": 510,
+        "height": 305
+    },
+    "axes": [
+        {
+            "position": "x",
+            "measure": "Price Monthly Change"
+        },
+        {
+            "position": "y",
+            "measure": "Distribution Monthly Change"
+        }
+    ],
+    "series": [
+        {
+            "plot": "bar",
+            "categoryFields": ["SKU", "Channel"],
+            "stacked": false
+        }
+    ],
+    "legends": [
+        {
+            "x": 60,
+            "y": 10,
+            "width": 510,
+            "height": 20,
+            "horizontalAlign": "right"
+        }
+    ]
+}

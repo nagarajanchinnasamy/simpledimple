@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<div id="chartContainer">
+  {scriptDependencies}
+  <script type="text/javascript">
+    d3.tsv("/data/example_data.tsv", function (data) {
+        d3.json("chartconfig/bubbles_horizontal_grouped.json", function(chartConfig) {
+            var myChart = new simpledimple.chart("#chartContainer", chartConfig, data);
+            myChart.draw();
+        });
+    });
+  </script>
+</div>
+</html>

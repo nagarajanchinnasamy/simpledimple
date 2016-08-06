@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<div id="chartContainer">
+  {scriptDependencies}
+  <script type="text/javascript">
+    d3.tsv("/data/example_data.tsv", function (data) {
+        data = dimple.filterData(data, "Date", "01/12/2012");
+        d3.json("chartconfig/ring_scatter.json", function(chartConfig) {
+            var myChart = new simpledimple.chart("#chartContainer", chartConfig, data);
+            myChart.draw();
+        });
+    });
+  </script>
+</div>
+</html>

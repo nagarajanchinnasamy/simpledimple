@@ -1,0 +1,32 @@
+{
+	"width": 590,
+	"height": 400,
+	"bounds": {
+		"x": 75,
+		"y": 30,
+		"width": 485,
+		"height": 330
+	},
+	"axes": [{
+		"position": "y",
+		"categoryFields": "Month",
+		"orderRules": [{
+			"ordering": "Date"
+		}]
+	}, {
+		"position": "x",
+		"measure": "Unit Sales",
+		"showPercent": true
+	}],
+	"series": [{
+		"categoryFields": "Channel",
+		"plot": "area"
+	}],
+	"legends": [{
+		"x": 60,
+		"y": 10,
+		"width": 500,
+		"height": 20,
+		"horizontalAlign": "right"
+	}]
+}

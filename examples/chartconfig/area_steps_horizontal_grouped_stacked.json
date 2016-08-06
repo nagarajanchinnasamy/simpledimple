@@ -2,9 +2,9 @@
 	"width": 590,
 	"height": 400,
 	"bounds": {
-		"x": 70,
+		"x": 60,
 		"y": 30,
-		"width": 340,
+		"width": 350,
 		"height": 330
 	},
 	"axes": [{
@@ -15,8 +15,7 @@
 		}]
 	}, {
 		"position": "y",
-		"measure": "Unit Sales",
-		"showPercent": true
+		"measure": "Unit Sales"
 	}],
 	"series": [{
 		"categoryFields": "SKU",

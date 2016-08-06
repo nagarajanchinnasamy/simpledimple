@@ -4,32 +4,31 @@
 	"bounds": {
 		"x": 70,
 		"y": 30,
-		"width": 340,
+		"width": 485,
 		"height": 330
 	},
 	"axes": [{
-		"position": "x",
-		"categoryFields": ["Owner", "Month"],
-		"groupOrderRules": [{
+		"position": "y",
+		"categoryFields": "Month",
+		"orderRules": [{
 			"ordering": "Date"
 		}]
 	}, {
-		"position": "y",
+		"position": "x",
 		"measure": "Unit Sales",
 		"showPercent": true
 	}],
 	"series": [{
-		"categoryFields": "SKU",
+		"categoryFields": "Channel",
 		"plot": "area",
 		"interpolation": "step",
-		"lineWeight": 1,
-		"barGap": 0.05
+		"lineWeight": 1
 	}],
 	"legends": [{
-		"x": 430,
-		"y": 20,
-		"width": 100,
-		"height": 300,
-		"horizontalAlign": "left"
+		"x": 60,
+		"y": 10,
+		"width": 500,
+		"height": 20,
+		"horizontalAlign": "right"
 	}]
 }

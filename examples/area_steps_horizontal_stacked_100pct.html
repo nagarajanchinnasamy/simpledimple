@@ -1,29 +1,20 @@
 <!----------------------------------------------------------------->
 <!-- AUTOMATICALLY GENERATED CODE - PLEASE EDIT TEMPLATE INSTEAD -->
 <!----------------------------------------------------------------->
-<!----------------------------------------------------------------->
-<!-- AUTOMATICALLY GENERATED CODE - PLEASE EDIT TEMPLATE INSTEAD -->
-<!----------------------------------------------------------------->
 <!DOCTYPE html>
 <meta charset="utf-8">
 <html>
 <div id="chartContainer">
-  <script src="/lib/d3.v3.4.8.js"></script>
-  <script src="/dist/dimple.v2.2.0.js"></script>
+  <script src="../bower_components/d3/d3.min.js"></script>
+  <script src="../bower_components/dimple/dist/dimple.v2.1.4.min.js"></script>
+  <script src="../dist/simpledimple.v1.0.0.js"></script>
   <script type="text/javascript">
-    var svg = dimple.newSvg("#chartContainer", 590, 400);
     d3.tsv("/data/example_data.tsv", function (data) {
-      data = dimple.filterData(data, "Owner", ["Aperture", "Black Mesa"])
-      var myChart = new dimple.chart(svg, data);
-      myChart.setBounds(65, 30, 505, 305);
-      var x = myChart.addCategoryAxis("x", "Month");
-      x.addOrderRule("Date");
-      myChart.addPctAxis("y", "Unit Sales");
-      var s = myChart.addSeries("Channel", dimple.plot.area);
-      s.interpolation = "step";
-      s.lineWeight = 1;
-      myChart.addLegend(60, 10, 500, 20, "right");
-      myChart.draw();
+        data = dimple.filterData(data, "Owner", ["Aperture", "Black Mesa"])
+        d3.json("chartconfig/area_steps_horizontal_stacked_100pct.json", function(chartConfig) {
+            var myChart = new simpledimple.chart("#chartContainer", chartConfig, data);
+            myChart.draw();
+        });
     });
   </script>
 </div>

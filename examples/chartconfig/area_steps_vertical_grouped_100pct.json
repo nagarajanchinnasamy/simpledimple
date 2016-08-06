@@ -2,19 +2,19 @@
 	"width": 590,
 	"height": 400,
 	"bounds": {
-		"x": 70,
+		"x": 90,
 		"y": 30,
-		"width": 340,
+		"width": 320,
 		"height": 330
 	},
 	"axes": [{
-		"position": "x",
+		"position": "y",
 		"categoryFields": ["Owner", "Month"],
 		"groupOrderRules": [{
 			"ordering": "Date"
 		}]
 	}, {
-		"position": "y",
+		"position": "x",
 		"measure": "Unit Sales",
 		"showPercent": true
 	}],
@@ -23,7 +23,7 @@
 		"plot": "area",
 		"interpolation": "step",
 		"lineWeight": 1,
-		"barGap": 0.05
+        "barGap": 0.05
 	}],
 	"legends": [{
 		"x": 430,

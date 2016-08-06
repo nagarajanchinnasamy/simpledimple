@@ -1,19 +1,35 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<html>
-<div id="chartContainer">
-  {scriptDependencies}
-  <script type="text/javascript">
-    var svg = dimple.newSvg("#chartContainer", 590, 400);
-    d3.tsv("/data/example_data.tsv", function (data) {
-      var myChart = new dimple.chart(svg, data);
-      myChart.setBounds(60, 30, 510, 330)
-      myChart.addCategoryAxis("x", ["Price Tier", "Channel"]);
-      myChart.addMeasureAxis("y", "Unit Sales");
-      myChart.addSeries("Channel", dimple.plot.bar);
-      myChart.addLegend(65, 10, 510, 20, "right");
-      myChart.draw();
-    });
-  </script>
-</div>
-</html>
+{
+    "width": 590,
+    "height": 400,
+        "bounds": {
+        "x": 60,
+        "y": 30,
+        "width": 510,
+        "height": 330
+    },
+    "axes": [
+        {
+            "position": "x",
+            "categoryFields": ["Price Tier", "Channel"]          
+        },
+        {
+            "position": "y",
+            "measure": "Unit Sales"
+        }
+    ],
+    "series": [
+        {
+			"categoryFields": "Channel",
+            "plot": "bar",
+            "stacked": true
+        }
+    ],
+    "legends": [
+		{
+			"x": 65,
+			"y": 10,
+			"width": 510,
+			"height": 20
+		}
+	]
+}

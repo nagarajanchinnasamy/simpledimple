@@ -1,19 +1,27 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<html>
-<div id="chartContainer">
-  {scriptDependencies}
-  <script type="text/javascript">
-    var svg = dimple.newSvg("#chartContainer", 590, 400);
-    d3.tsv("/data/example_data.tsv", function (data) {
-      var myChart = new dimple.chart(svg, data);
-      myChart.setBounds(75, 30, 480, 330)
-      myChart.addMeasureAxis("x", "Unit Sales");
-      var y = myChart.addCategoryAxis("y", "Month");
-      y.addOrderRule("Date");
-      myChart.addSeries(null, dimple.plot.bar);
-      myChart.draw();
-    });
-  </script>
-</div>
-</html>
+{
+    "width": 590,
+    "height": 400,
+        "bounds": {
+        "x": 70,
+        "y": 30,
+        "width": 480,
+        "height": 330
+    },
+    "axes": [
+        {
+            "position": "x",
+            "measure": "Unit Sales"
+        },
+        {
+            "position": "y",
+            "categoryFields": "Month",
+            "orderRules": [{"ordering": "Date"}]            
+        }
+    ],
+    "series": [
+        {
+            "plot": "bar",
+            "stacked": true
+        }
+    ]
+}

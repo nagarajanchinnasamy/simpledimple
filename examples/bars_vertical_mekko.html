@@ -10,7 +10,7 @@
   <script src="../dist/simpledimple.v1.0.0.js"></script>
   <script type="text/javascript">
     d3.tsv("/data/example_data.tsv", function (data) {
-        d3.json("chartconfig/bars_verticals_mekko.json", function(chartConfig) {
+        d3.json("chartconfig/bars_vertical_mekko.json", function(chartConfig) {
             var myChart = new simpledimple.chart("#chartContainer", chartConfig, data);
             myChart.draw();
         });

@@ -1,0 +1,29 @@
+{
+    "width": 590,
+    "height": 400,
+        "bounds": {
+        "x": 60,
+        "y": 30,
+        "width": 500,
+        "height": 330
+    },
+    "axes": [
+        {
+            "position": "x",
+            "categoryFields": ["Owner", "Month"],
+            "groupOrderRules": [{"ordering": "Date"}]            
+        },
+        {
+            "position": "y",
+            "measure": "Unit Sales"
+        }
+    ],
+    "series": [
+        {
+			"categoryFields": "Owner",
+            "plot": "area",
+            "lineWeight": 1,
+            "barGap": 0.05
+        }
+    ]
+}

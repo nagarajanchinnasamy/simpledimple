@@ -1,0 +1,37 @@
+{
+    "width": 590,
+    "height": 400,
+        "bounds": {
+        "x": 50,
+        "y": 40,
+        "width": 500,
+        "height": 310
+    },
+    "axes": [
+        {
+            "position": "x",
+            "measure": "Distribution"
+        },
+        {
+            "position": "y",
+            "measure": "Price"
+        }
+    ],
+    "series": [
+        {
+            "plot": "area",
+            "categoryFields": ["SKU", "Price Tier"],
+            "aggregateMethod": "avg",
+            "lineMarkers": true
+        }
+    ],
+    "legends": [
+        {
+            "x": 30,
+            "y": 10,
+            "width": 500,
+            "height": 35,
+            "horizontalAlign": "right"
+        }
+    ]
+}

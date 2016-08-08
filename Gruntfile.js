@@ -6,7 +6,7 @@ module.exports = function (grunt) {
         uglify: {
             dist: {
                 files: {
-                    'dest/<%= pkg.name %>.v<%= pkg.version %>.min.js': ['src/<% pkg.name %>.js']
+                    'dist/<%= pkg.name %>.v<%= pkg.version %>.min.js': ['<%= pkg.name %>.js']
                 }
             }
         },
@@ -38,7 +38,7 @@ module.exports = function (grunt) {
                 src: [
                     'Gruntfile.js',
                     'test/**/*.spec.js',
-                    'src/<%= pkg.name %>.js'
+                    '<%= pkg.name %>.js'
                 ],
                 directives: {
                     browser: true,
@@ -74,7 +74,7 @@ module.exports = function (grunt) {
             options: {
                 exampleOutputPath: 'examples/',
                 d3Path: '../bower_components/d3/d3.min.js',
-                dimplePath: '../bower_components/dimple/dist/dimple.v<%= pkg.dependencies.dimple %>.min.js',
+                dimplePath: '../bower_components/dimple/dist/dimple.v<%= pkg.buildDependencies.dimple %>.min.js',
                 distPath: '/dist/',
                 version: 'v<%= pkg.version %>',
                 scriptTag: '{scriptDependencies}',

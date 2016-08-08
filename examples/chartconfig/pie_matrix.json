@@ -1,21 +1,40 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<html>
-<div id="chartContainer">
-  {scriptDependencies}
-  <script type="text/javascript">
-    var svg = dimple.newSvg("#chartContainer", 590, 400);
-    d3.tsv("/data/example_data.tsv", function (data) {
-      var myChart = new dimple.chart(svg, data);
-      myChart.setBounds(95, 25, 475, 335)
-      myChart.addCategoryAxis("x", "Price Tier");
-      myChart.addCategoryAxis("y", "Pack Size");
-      myChart.addMeasureAxis("p", "Unit Sales");
-      var pies = myChart.addSeries("Channel", dimple.plot.pie);
-      pies.radius = 25;
-      myChart.addLegend(240, 10, 330, 20, "right");
-      myChart.draw();
-    });
-  </script>
-</div>
-</html>
+{
+    "width": 590,
+    "height": 400,
+        "bounds": {
+        "x": 95,
+        "y": 25,
+        "width": 475,
+        "height": 335
+    },
+    "axes": [
+        {
+            "position": "x",
+            "categoryFields": ["Price Tier"]
+        },
+        {
+            "position": "y",
+            "categoryFields": "Pack Size"
+        },
+        {
+            "position": "p",
+            "measure": "Unit Sales"
+        }
+    ],
+    "series": [
+        {
+            "categoryFields": ["Channel"],
+            "plot": "pie",
+            "radius": 25
+        }
+    ],
+    "legends": [
+		{
+			"x": 240,
+			"y": 10,
+			"width": 330,
+			"height": 20,
+			"horizontalAlign": "right"
+		}
+	]
+}

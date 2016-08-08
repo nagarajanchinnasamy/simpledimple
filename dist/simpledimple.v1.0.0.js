@@ -217,14 +217,14 @@
                 // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.dimpleSeries#wiki-categoryFields
                 categoryFields = config.categoryFields || null,
                 // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.dimpleSeries#wiki-plot
-                plotFunction = {
+                plotFunctions = {
                     "area": dimple.plot.area,
                     "bar": dimple.plot.bar,
                     "bubble": dimple.plot.bubble,
                     "line": dimple.plot.line,
                     "pie": dimple.plot.pie
                 },
-                aggregateFunction = {
+                aggregateFunctions = {
                     "avg": dimple.aggregateMethod.avg,
                     "count": dimple.aggregateMethod.count,
                     "max": dimple.aggregateMethod.max,
@@ -240,7 +240,7 @@
             } else {
                 seriesAxes = null;
             }
-            dimpleSeries = this.chart.addSeries(categoryFields, plotFunction[config.plotFunction], seriesAxes);
+            dimpleSeries = this.chart.addSeries(categoryFields, plotFunctions[config.plot], seriesAxes);
             // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.dimpleSeries#wiki-x
             if (config.x !== undefined) {
                 dimpleSeries.x = this.axes[config.x];
@@ -263,11 +263,11 @@
             }
             // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.dimpleSeries#wiki-plot
             if (config.plot !== undefined) {
-                dimpleSeries.plot = plotFunction[config.plot];
+                dimpleSeries.plot = plotFunctions[config.plot];
             }
             // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.dimpleSeries#wiki-aggregateFunction
             if (config.aggregate !== undefined) {
-                dimpleSeries.aggregate = aggregateFunction[config.aggregate];
+                dimpleSeries.aggregate = aggregateFunctions[config.aggregate];
             }
             // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.dimpleSeries#wiki-stacked
             if (config.stacked !== undefined) {
@@ -309,6 +309,14 @@
             // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.dimpleSeries#wiki-radius
             if (config.radius !== undefined) {
                 dimpleSeries.radius = config.radius;
+            }
+            // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.dimpleSeries#wiki-innerRadius
+            if (config.innerRadius !== undefined) {
+                dimpleSeries.innerRadius = config.innerRadius;
+            }
+            // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.dimpleSeries#wiki-outerRadius
+            if (config.outerRadius !== undefined) {
+                dimpleSeries.outerRadius = config.outerRadius;
             }
             // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.dimpleSeries#wiki-addOrderRule
             if (config.orderRules !== undefined) {

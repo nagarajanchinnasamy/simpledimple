@@ -33,7 +33,7 @@
     "grunt-jslint": "^1.1.14",
     "requirejs": "^2.2.0"
   },
-  "dependencies": {
+  "buildDependencies": {
     "d3": "3.4.8",
     "dimple": "2.1.4"
   }

@@ -1,23 +1,38 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<html>
-<div id="chartContainer">
-  {scriptDependencies}
-  <script type="text/javascript">
-    var svg = dimple.newSvg("#chartContainer", 590, 400);
-    d3.tsv("/data/example_data.tsv", function (data) {
-      var myChart = new dimple.chart(svg, data);
-      myChart.setBounds(20, 20, 460, 360)
-      myChart.addMeasureAxis("p", "Unit Sales");
-      var outerRing = myChart.addSeries("Channel", dimple.plot.pie);
-      var innerRing = myChart.addSeries("Price Tier", dimple.plot.pie);
-      // Negatives are calculated from outside edge, positives from center
-      outerRing.innerRadius = "-30px";
-      innerRing.outerRadius = "-40px";
-      innerRing.innerRadius = "-70px";
-      myChart.addLegend(500, 20, 90, 300, "left");
-      myChart.draw();
-    });
-  </script>
-</div>
-</html>
+{
+    "width": 590,
+    "height": 400,
+    "bounds": {
+        "x": 20,
+        "y": 20,
+        "width": 460,
+        "height": 360
+    },
+    "axes": [
+        {
+            "position": "p",
+            "measure": "Unit Sales"
+        }
+    ],
+    "series": [
+        {
+            "categoryFields": ["Channel"],
+            "plot": "pie",
+            "innerRadius": "-30px"
+        },
+        {
+            "categoryFields": ["Price Tier"],
+            "plot": "pie",
+            "outerRadius": "-40px",
+            "innerRadius": "-70px"
+        }
+    ],
+    "legends": [
+		{
+			"x": 500,
+			"y": 20,
+			"width": 90,
+			"height": 300,
+			"horizontalAlign": "left"
+		}
+	]
+}

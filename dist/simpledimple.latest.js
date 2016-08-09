@@ -230,7 +230,7 @@
                     "max": dimple.aggregateMethod.max,
                     "min": dimple.aggregateMethod.min,
                     "sum": dimple.aggregateMethod.sum
-                };
+                }, afterDraw, makeEventHandler;
             if (config.axes && config.axes.length) {
                 seriesAxes = [];
                 nSeriesAxes = config.axes.length;
@@ -292,7 +292,10 @@
             // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.dimpleSeries#wiki-afterDraw
             if (config.afterDraw !== undefined) {
                 /*jslint evil: true */
-                dimpleSeries.afterDraw = new Function("shape", "data", config.afterDraw);
+                afterDraw = new Function("shape", "data", "chart", config.afterDraw);
+                dimpleSeries.afterDraw = function (shape, data) {
+                    afterDraw(shape, data, this.chart);
+                };
             }
             // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.dimpleSeries#wiki-interpolation
             if (config.interpolation !== undefined) {
@@ -327,12 +330,17 @@
                 }
             }
             // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.dimpleSeries#wiki-addEventHandler
+            makeEventHandler = function (handler, chart) {
+                return function (e) {
+                    handler(e, chart);
+                };
+            };
             if (config.eventHandlers !== undefined) {
                 nHandlers = config.eventHandlers.length;
                 for (j = 0; j < nHandlers; j++) {
-                    handler = config.eventHandlers[j];
                     /*jslint evil: true */
-                    dimpleSeries.addEventHandler(handler.event, new Function("e", handler.handler));
+                    handler = new Function("e", "chart", config.eventHandlers[j].handler);
+                    dimpleSeries.addEventHandler(config.eventHandlers[j].event, makeEventHandler(handler, this.chart));
                 }
             }
 

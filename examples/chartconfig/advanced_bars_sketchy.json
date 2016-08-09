@@ -1,0 +1,45 @@
+{
+	"width": 590,
+	"height": 400,
+    "margins": {
+		"x": 110,
+		"y": 60,
+		"width": 20,
+		"height": 80
+	},
+    "noFormats": true,
+    "axes": [
+        {
+            "position": "x",
+            "categoryFields": ["Price Tier"]
+		},
+		{
+			"position": "y",
+			"measure": "Unit Sales"
+		}
+	],
+    "series": [
+		{
+            "categoryFields": ["Price Tier"],
+			"plot": "bar",
+            "barGap": 0.5,
+            "eventHandlers": [
+                {
+                    "event": "mouseover",
+                    "handler": "         // Override the standard tooltip behaviour\n          var labelX = parseFloat(e.selectedShape.attr(\"x\")) + parseFloat(e.selectedShape.attr(\"width\") / 2),\n                  labelY = parseFloat(e.selectedShape.attr(\"y\")) - 70;\n          // Draw the text information in the top left corner\n          chart.svg.append(\"text\")\n                  .attr(\"class\", \"tooltip writing\")\n                  .attr(\"x\", labelX)\n                  .attr(\"y\", labelY)\n                  .style(\"pointer-events\", \"none\")\n                  .style(\"text-anchor\", \"middle\")\n                  .text(e.xValue + \" (\" + d3.format(\",.f\")(e.yValue) + \")\");\n          chart.svg.append(\"path\")\n                  .attr(\"class\", \"tooltip line\")\n                  .attr(\"transform\", \"translate(\" + labelX + \",\" + labelY + \")\")\n                  .attr(\"d\", \"M 2 5 L 0 65 L -5 55 L 8 56 L 3 62\");"
+                },
+                {
+                    "event": "mouseleave",
+                    "handler": "          chart.svg.selectAll(\".tooltip\").remove();\n"
+                }
+            ]
+		}
+	],
+    "customClassList": {
+        "axisLine": "line",
+        "barSeries": "box",
+        "axisLabel": "writing",
+        "axisTitle": "writing",
+        "colorClasses": [ "hatch-1", "hatch-2", "hatch-3" ]
+    }
+}

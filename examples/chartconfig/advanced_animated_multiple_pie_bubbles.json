@@ -1,0 +1,50 @@
+{
+	"width": 590,
+	"height": 400,
+        "bounds": {
+		"x": 60,
+		"y": 30,
+		"width": 495,
+		"height": 330
+	},
+    "axes": [
+        {
+            "position": "x",
+            "measure": "Distribution",
+            "overrideMin": 40,
+            "overrideMax": 70
+		},
+		{
+			"position": "y",
+			"measure": "Price",
+            "overrideMax": 150
+		},
+		{
+			"position": "p",
+			"measure": "Unit Sales"
+		},
+		{
+			"position": "z",
+			"measure": "Sales Value"
+		}
+	],
+        "series": [
+		{
+            "categoryFields": ["Price Tier", "Channel"],
+			"plot": "pie",
+			"radius": 75,
+            "innerRadius": "-10px",
+			"aggregate": "avg"
+		},
+		{
+            "categoryFields": ["Price Tier", "Owner"],
+			"plot": "pie",
+			"radius": 75,
+            "outerRadius": "-15px",
+			"aggregate": "avg"
+		}
+	],
+    "storyboard": {
+        "categoryFields": "Date"
+    }
+}

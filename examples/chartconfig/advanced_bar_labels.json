@@ -1,0 +1,28 @@
+{
+	"width": 590,
+	"height": 400,
+        "bounds": {
+		"x": 65,
+		"y": 45,
+		"width": 505,
+		"height": 315
+	},
+    "axes": [
+        {
+            "position": "x",
+            "categoryFields": ["Price Tier", "Channel"]
+		},
+		{
+			"position": "y",
+			"measure": "Unit Sales",
+            "showPercent": true
+		}
+	],
+        "series": [
+		{
+            "categoryFields": ["Owner"],
+			"plot": "bar",
+            "afterDraw": "        // Using the afterDraw callback means this code still works with animated\n        // draws (e.g. myChart.draw(1000)) or storyboards (though an onTick callback should\n        // also be used to clear the text from the previous frame)\n        // Get the shape as a d3 selection\n        var s = d3.select(shape),\n          rect = {\n            x: parseFloat(s.attr(\"x\")),\n            y: parseFloat(s.attr(\"y\")),\n            width: parseFloat(s.attr(\"width\")),\n            height: parseFloat(s.attr(\"height\"))\n          };\n        // Only label bars where the text can fit\n        if (rect.height >= 8) {\n          // Add a text label for the value\n          chart.svg.append(\"text\")\n            // Position in the centre of the shape (vertical position is\n            // manually set due to cross-browser problems with baseline)\n            .attr(\"x\", rect.x + rect.width / 2)\n            .attr(\"y\", rect.y + rect.height / 2 + 3.5)\n            // Centre align\n            .style(\"text-anchor\", \"middle\")\n            .style(\"font-size\", \"10px\")\n            .style(\"font-family\", \"sans-serif\")\n            // Make it a little transparent to tone down the black\n            .style(\"opacity\", 0.6)\n            // Format the number\n            .text(d3.format(\",.1f\")(data.yValue / 1000) + \"k\");\n        }"
+		}
+	]
+}

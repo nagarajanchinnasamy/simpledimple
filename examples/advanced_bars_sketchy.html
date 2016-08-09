@@ -1,0 +1,67 @@
+<!----------------------------------------------------------------->
+<!-- AUTOMATICALLY GENERATED CODE - PLEASE EDIT TEMPLATE INSTEAD -->
+<!----------------------------------------------------------------->
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+  <script src="../bower_components/d3/d3.min.js"></script>
+  <script src="../bower_components/dimple/dist/dimple.v2.1.4.min.js"></script>
+  <script src="../dist/simpledimple.v1.0.0.js"></script>
+  <!-- Props to Kimerly Geswein for her font Shadows Into Light */ -->
+  <link href='http://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'>
+  <style>
+    .line {
+      fill: none;
+    }
+    .box,.line {
+      stroke: black;
+      stroke-width: 2px;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .writing {
+      font-family: 'Shadows Into Light', cursive;
+      font-size: 24px;
+      font-weight: 700;
+    }
+    .hatch-1 {
+      fill: url(#down-hatch);
+    }
+    .hatch-2 {
+      fill: url(#up-hatch);
+    }
+    .hatch-3 {
+      fill: url(#cross-hatch);
+    }
+  </style>
+</head>
+<body>
+  <div id="chartContainer">
+    <svg height="0" width="0">
+      <defs>
+        <pattern id="down-hatch" width="20" height="20" patternUnits="userSpaceOnUse">
+          <line x1="0" x2="20" y1="0" y2="20" class="line"/>
+          <line x1="-2" x2="2" y1="18" y2="22" class="line"/>
+          <line x1="18" x2="22" y1="-2" y2="2" class="line"/>
+        </pattern>
+        <pattern id="up-hatch" width="20" height="20" patternUnits="userSpaceOnUse">
+          <line x1="0" x2="20" y1="20" y2="0" class="line"/>
+          <line x1="-2" x2="2" y1="2" y2="-2" class="line"/>
+          <line x1="18" x2="22" y1="22" y2="18" class="line"/>
+        </pattern>
+        <pattern id="cross-hatch" width="14" height="20" patternUnits="userSpaceOnUse">
+          <line x1="2" x2="2" y1="0" y2="20" class="line"/>
+        </pattern>
+      </defs>
+    </svg>
+    <script type="text/javascript">
+    d3.tsv("/data/example_data.tsv", function (data) {
+        d3.json("chartconfig/advanced_bars_sketchy.json", function(chartConfig) {
+            var myChart = new simpledimple.chart("#chartContainer", chartConfig, data);
+            myChart.draw();
+        });
+    });
+  </script>
+</div>
+</html>

@@ -1,10 +1,8 @@
 ### simpledimple.js ###
 
-Aim of [simpledimple.js](http://nagarajanchinnasamy.com/simpledimple) is to further simplify use of powerful visualization library [dimple](http://dimplejs.org/).
+Aim of [simpledimple.js](http://nagarajanchinnasamy.com/simpledimple) is to further simplify use of powerful visualization library [dimple](http://dimplejs.org/). It separates the configuration of parameters of a chart from JavaScript code thus opening the possibilities of interactive tools based designing, external storage and exchange of charts.
 
-Simpledimple.js is a wrapper around dimple's API. This wrapper accepts properties of a chart (E.g., parameters of axis, series etc.) as a JavaScript object. These properties can be externally stored and exchanged. Interactive chart designing tools can be used to generate these properties.
-
-To draw a chart, create a `simpledimple.chart` object and invoke `draw()` function of that chart object:
+Simpledimple.js is a wrapper around dimple's API. This wrapper accepts configuration of a chart (E.g., parameters of axis, series etc.) as a JavaScript object. To draw a chart, you need to create a `simpledimple.chart` object and invoke `draw()` function of that chart object passing the chart configuration:
 
     var chartConfig = {
         width: 590,

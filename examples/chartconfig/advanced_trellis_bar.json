@@ -25,16 +25,16 @@
 
       // Draw a chart for each of the 12 dates
       months.forEach(function (month) {
-          
+
           // Wrap to the row above
           if (left + ((col + 1) * (width + inMarg)) > totalWidth) {
             row += 1;
             col = 0;
           }
-          
+
           // Filter for the month in the iteration
           var chartData = dimple.filterData(data, "Date", month);
-          
+
           // Use d3 to draw a text label for the month
           svg
             .append("text")
@@ -45,7 +45,7 @@
                 .style("font-size", "28px")
                 .style("opacity", 0.2)
                 .text(chartData[0].Month.substring(0, 3));
-          
+
           // Create a chart at the correct point in the trellis
           var myChart = new dimple.chart(svg, chartData);
           myChart.setBounds(
@@ -53,16 +53,16 @@
             top + (row * (height + inMarg)),
             width,
             height);
-          
+
           // Add x and fix ordering so that all charts are the same
           var x = myChart.addCategoryAxis("x", "Owner");
           x.addOrderRule(["Black Mesa", "Aperture", "Tyrell Corp",
             "Rekall", "MomCorp", "LexCorp", "Stark Ind", "Wayne Ent"]);
-          
+
           // Add y and fix scale so that all charts are the same
           var y = myChart.addMeasureAxis("y", "Sales Value");
           y.overrideMax = 16000000;
-          
+
           // Draw the bars.  Passing null here would draw all bars with
           // the same color.  Passing owner second colors by owner, which
           // is normally bad practice in a bar chart but works in a trellis.

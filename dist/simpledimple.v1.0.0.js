@@ -50,11 +50,17 @@
 
     // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.chart
     simpledimple.chart = function (parentSelector, chartConfig, data) {
-        var bounds, noFormats, i, n, axis, series, legend, aClass, colors, color, margins;
+        var bounds, noFormats, i, n, axis, series, legend, aClass, colors, color, margins, makeEventHandler;
+
+        makeEventHandler = function (handler, chart, data, userData) {
+            return function (e) {
+                handler(e, chart, data, userData);
+            };
+        };
 
         // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.chart#wiki-addAxis
         this.addAxis  = function (config) {
-            var isInt, dimpleAxis, k, nRules, rule,
+            var j, m, isInt, dimpleAxis, rule,
                 // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.dimpleAxis#wiki-position
                 position = config.position || null,
                 // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.dimpleAxis#wiki-categoryFields
@@ -66,7 +72,23 @@
                 // Help: https://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.chart#addTimeAxis
                 inputFormat = config.inputFormat || null,
                 // Help: https://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.chart#addTimeAxis
-                outputFormat = config.outputFormat || null;
+                outputFormat = config.outputFormat || null,
+                timePeriods = {
+                    seconds: d3.time.seconds,
+                    minutes: d3.time.minutes,
+                    hours: d3.time.hours,
+                    days: d3.time.days,
+                    weeks: d3.time.weeks,
+                    sundays: d3.time.sundays,
+                    mondays: d3.time.mondays,
+                    tuesdays: d3.time.tuesdays,
+                    wednesdays: d3.time.wednesdays,
+                    thursdays: d3.time.thursdays,
+                    fridays: d3.time.fridays,
+                    saturdays: d3.time.saturdays,
+                    months: d3.time.months,
+                    years: d3.time.years
+                };
 
             isInt = function (value) {
                 var x;
@@ -108,11 +130,19 @@
             }
             // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.dimpleAxis#wiki-overrideMin
             if (config.overrideMin !== undefined) {
-                dimpleAxis.overrideMin = config.overrideMin;
+                if (config.timeField !== undefined) {
+                    dimpleAxis.overrideMin = new Date(config.overrideMin);
+                } else {
+                    dimpleAxis.overrideMin = config.overrideMin;
+                }
             }
             // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.dimpleAxis#wiki-overrideMax
             if (config.overrideMax !== undefined) {
-                dimpleAxis.overrideMax = config.overrideMax;
+                if (config.timeField !== undefined) {
+                    dimpleAxis.overrideMax = new Date(config.overrideMax);
+                } else {
+                    dimpleAxis.overrideMax = config.overrideMax;
+                }
             }
             // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.dimpleAxis#wiki-showGridlines
             if (config.showGridlines !== undefined) {
@@ -128,7 +158,7 @@
             }
             // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.dimpleAxis#wiki-timePeriod
             if (config.timePeriod !== undefined) {
-                dimpleAxis.timePeriod = config.timePeriod;
+                dimpleAxis.timePeriod = timePeriods[config.timePeriod];
             }
             // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.dimpleAxis#wiki-timeInterval
             if (config.timeInterval !== undefined) {
@@ -168,17 +198,17 @@
             }
             // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.dimpleAxis#wiki-addGroupOrderRule
             if (config.groupOrderRules !== undefined) {
-                nRules = config.groupOrderRules.length;
-                for (k = 0; k < nRules; k++) {
-                    rule = config.groupOrderRules[k];
+                m = config.groupOrderRules.length;
+                for (j = 0; j < m; j++) {
+                    rule = config.groupOrderRules[j];
                     dimpleAxis.addGroupOrderRule(rule.ordering, rule.desc);
                 }
             }
             // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.dimpleAxis#wiki-addOrderRule
             if (config.orderRules !== undefined) {
-                nRules = config.orderRules.length;
-                for (k = 0; k < nRules; k++) {
-                    rule = config.orderRules[k];
+                m = config.orderRules.length;
+                for (j = 0; j < m; j++) {
+                    rule = config.orderRules[j];
                     dimpleAxis.addOrderRule(rule.ordering, rule.desc);
                 }
             }
@@ -188,13 +218,13 @@
 
         // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.chart#wiki-addLegend
         this.addLegend = function (config) {
-            var cSeries, l, nCSeries, lSeries, dimpleLegend;
+            var  j, m, cSeries, lSeries, dimpleLegend;
 
             cSeries = config.series;
-            nCSeries = cSeries ? cSeries.length : 0;
-            lSeries = nCSeries ? [] : null;
-            for (l = 0; l < nCSeries; l++) {
-                lSeries.push(series[cSeries[l]]);
+            m = cSeries ? cSeries.length : 0;
+            lSeries = m ? [] : null;
+            for (j = 0; j < m; j++) {
+                lSeries.push(series[cSeries[j]]);
             }
 
             dimpleLegend = this.chart.addLegend(config.x, config.y, config.width, config.height, config.horizontalAlign, lSeries);
@@ -207,13 +237,12 @@
             if (config.fontFamily !== undefined) {
                 dimpleLegend.fontFamily = config.fontFamily;
             }
-
             return dimpleLegend;
         };
 
         // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.chart#wiki-addSeries
         this.addSeries = function (config) {
-            var dimpleSeries, seriesAxes, nSeriesAxes, j, nRules, rule, nHandlers, handler,
+            var  j, m, dimpleSeries, seriesAxes, rule, handler,
                 // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.dimpleSeries#wiki-categoryFields
                 categoryFields = config.categoryFields || null,
                 // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.dimpleSeries#wiki-plot
@@ -230,11 +259,11 @@
                     "max": dimple.aggregateMethod.max,
                     "min": dimple.aggregateMethod.min,
                     "sum": dimple.aggregateMethod.sum
-                }, afterDraw, makeEventHandler;
+                }, afterDraw;
             if (config.axes && config.axes.length) {
                 seriesAxes = [];
-                nSeriesAxes = config.axes.length;
-                for (j = 0; j < nSeriesAxes; j++) {
+                m = config.axes.length;
+                for (j = 0; j < m; j++) {
                     seriesAxes.push(this.axes[config.axes[j]]);
                 }
             } else {
@@ -292,9 +321,9 @@
             // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.dimpleSeries#wiki-afterDraw
             if (config.afterDraw !== undefined) {
                 /*jslint evil: true */
-                afterDraw = new Function("shape", "data", "chart", config.afterDraw);
-                dimpleSeries.afterDraw = function (shape, data) {
-                    afterDraw(shape, data, this.chart);
+                afterDraw = new Function("shape", "shapeData", "chart", "data", "userData", config.afterDraw);
+                dimpleSeries.afterDraw = function (shape, shapeData) {
+                    afterDraw(shape, shapeData, this.chart, this.data, this.userData);
                 };
             }
             // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.dimpleSeries#wiki-interpolation
@@ -323,24 +352,19 @@
             }
             // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.dimpleSeries#wiki-addOrderRule
             if (config.orderRules !== undefined) {
-                nRules = config.orderRules.length;
-                for (j = 0; j < nRules; j++) {
+                m = config.orderRules.length;
+                for (j = 0; j < m; j++) {
                     rule = config.orderRules[j];
                     dimpleSeries.addOrderRule(rule.ordering, rule.desc);
                 }
             }
             // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.dimpleSeries#wiki-addEventHandler
-            makeEventHandler = function (handler, chart) {
-                return function (e) {
-                    handler(e, chart);
-                };
-            };
             if (config.eventHandlers !== undefined) {
-                nHandlers = config.eventHandlers.length;
-                for (j = 0; j < nHandlers; j++) {
+                m = config.eventHandlers.length;
+                for (j = 0; j < m; j++) {
                     /*jslint evil: true */
-                    handler = new Function("e", "chart", config.eventHandlers[j].handler);
-                    dimpleSeries.addEventHandler(config.eventHandlers[j].event, makeEventHandler(handler, this.chart));
+                    handler = new Function("e", "chart", "data", "userData", config.eventHandlers[j].handler);
+                    dimpleSeries.addEventHandler(config.eventHandlers[j].event, makeEventHandler(handler, this.chart, this.data, this.userData));
                 }
             }
 
@@ -350,9 +374,11 @@
         // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.chart#wiki-draw
         this.draw = function (duration, noDataChange) {
             this.chart.draw(duration, noDataChange);
+            if (this.afterDraw) {
+                this.afterDraw(this);
+            }
             // Return the chart for chaining
             return this;
-
         };
 
         // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.chart#wiki-setStoryboard
@@ -388,6 +414,9 @@
 
             return storyboard;
         };
+
+        // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.dimpleSeries#wiki-afterDraw
+        this.userData = {};
 
         // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.chart#wiki-svg
         this.svg = dimple.newSvg(parentSelector, chartConfig.width, chartConfig.height);
@@ -470,6 +499,22 @@
         margins = chartConfig.margins;
         if (margins !== undefined) {
             this.chart.setMargins(margins.x, margins.y, margins.width, margins.height);
+        }
+        // Help: https://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.chart#assignColor
+        if (chartConfig.assignedColors !== undefined) {
+            n = chartConfig.assignedColors.length;
+            colors = {};
+            for (i = 0; i < n; i++) {
+                color = chartConfig.assignedColors[i];
+                colors[color.tag] = this.chart.assignColor(color.tag, color.fill, color.stroke, color.opacity);
+            }
+            this.chart.assignedColors = colors;
+        }
+
+        // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.dimpleSeries#wiki-afterDraw
+        if (chartConfig.afterDraw !== undefined) {
+            /*jslint evil: true */
+            this.afterDraw = new Function("simpledimple", chartConfig.afterDraw);
         }
     };
 

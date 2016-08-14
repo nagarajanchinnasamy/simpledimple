@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<script src="../bower_components/d3/d3.min.js"></script>
+<style>
+body {font-family: "Lato", sans-serif;}
+
+ul.tab {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Float the list items side by side */
+ul.tab li {float: left;}
+
+/* Style the links inside the list items */
+ul.tab li a {
+    display: inline-block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+/* Change background color of links on hover */
+ul.tab li a:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+ul.tab li a:focus, .active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    height: 500px;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+</style>
+<body>
+<div>
+    <div  style="float:left;margin:10px;">
+        <p>Select a chart type:</p>
+        <select id="chartType" onchange="onChartTypeChange()">
+            <option selected="selected", value="Bar">Bar Charts</a></option>
+            <option value="Bubble">Bubble Charts</a></option>
+            <option value="Line">Line Charts</a></option>
+            <option value="Step">Step Charts</a></option>
+            <option value="Pie">Pie Charts</a></option>
+            <option value="Ring">Ring Charts</a></option>
+            <option value="Scatter">Scatter Charts</a></option>
+            <option value="Area">Area Charts</a></option>
+            <option value="StepArea">Step Area Charts</a></option>
+            <option value="Advanced">Advanced Custom Charts</a></option>
+        </select>
+    </div>
+    <div style="float:left;margin:10px;">
+        <p>Select a chart:</p>
+        <select id="chart" onchange="onChartChange()">
+        </select>
+    </div>
+</div>
+<div style="clear: left; width: 95%">
+    <div>
+        <ul class="tab">
+          <li><a id="drawChartLink" href="#" class="tablinks" onclick="drawChart(event)">Chart</a></li>
+          <li><a id="showChartConfigLink" href="#" class="tablinks" onclick="showChartConfig(event)">Chart_Config_JSON</a></li>
+          <li><a id="showHTMLLink" href="#" class="tablinks" onclick="showHTML(event)">HTML</a></li>
+        </ul>
+    </div>
+
+    <div id="drawChart" class="tabcontent">
+        <iframe id="chartFrame" style="width: 100%; height: 100%;"></iframe>
+    </div>
+
+    <div id="showChartConfig" class="tabcontent">
+        <textarea id="chartConfigText" style="width: 100%; height: 100%;"></textarea>
+    </div>
+
+    <div id="showHTML" class="tabcontent">
+        <textarea id="htmlText" style="width: 100%; height: 100%;"></textarea>
+    </div>
+</div>
+
+<script>
+
+function onChartTypeChange() {
+    var x = document.getElementById("chartType").value;
+    populateCharts(x);
+    onChartChange();
+}
+
+function emptyCharts() {
+    var chartsList = document.getElementById("chart");
+    var i;
+    for(i = chartsList.options.length - 1 ; i >= 0 ; i--) {
+        chartsList.remove(i);
+    }
+}
+
+function populateCharts(chartType) {
+    var charts = {
+        Advanced: [
+            {value:"advanced_animated_multiple_pie_bubbles", text:"advanced_animated_multiple_pie_bubbles"},
+            {value:"advanced_bar_labels", text:"advanced_bar_labels"},
+            {value:"advanced_bars_sketchy", text:"advanced_bars_sketchy"},
+            {value:"advanced_bullet", text:"advanced_bullet"},
+            {value:"advanced_change_bubbles", text:"advanced_change_bubbles"},
+            {value:"advanced_custom_styling", text:"advanced_custom_styling"},
+            {value:"advanced_dynamic_line_color", text:"advanced_dynamic_line_color"},
+            {value:"advanced_grouped_mekko", text:"advanced_grouped_mekko"},
+            {value:"advanced_interactive_legends", text:"advanced_interactive_legends"},
+            {value:"advanced_lollipop_with_hover", text:"advanced_lollipop_with_hover"},
+            {value:"advanced_matrix", text:"advanced_matrix"},
+            {value:"advanced_pong", text:"advanced_pong"},
+            {value:"advanced_price_range_lollipop", text:"advanced_price_range_lollipop"},
+            {value:"advanced_responsive_sizing", text:"advanced_responsive_sizing"},
+            {value:"advanced_storyboard_control", text:"advanced_storyboard_control"},
+            {value:"advanced_time_axis", text:"advanced_time_axis"},
+            {value:"advanced_trellis_bar", text:"advanced_trellis_bar"},
+            {value:"advanced_waterfall", text:"advanced_waterfall"}
+        ],
+        Area: [
+            {value:"areas_curvy", text:"areas_curvy"},
+            {value:"areas_dual_measure", text:"areas_dual_measure"},
+            {value:"areas_horizontal_grouped_100pct", text:"areas_horizontal_grouped_100pct"},
+            {value:"areas_horizontal_grouped_stacked", text:"areas_horizontal_grouped_stacked"},
+            {value:"areas_horizontal_grouped", text:"areas_horizontal_grouped"},
+            {value:"areas_horizontal_stacked_100pct", text:"areas_horizontal_stacked_100pct"},
+            {value:"areas_horizontal_stacked", text:"areas_horizontal_stacked"},
+            {value:"areas_horizontal", text:"areas_horizontal"},
+            {value:"areas_vertical_grouped_100pct", text:"areas_vertical_grouped_100pct"},
+            {value:"areas_vertical_grouped_stacked", text:"areas_vertical_grouped_stacked"},
+            {value:"areas_vertical_grouped", text:"areas_vertical_grouped"},
+            {value:"areas_vertical_stacked_100pct", text:"areas_vertical_stacked_100pct"},
+            {value:"areas_vertical_stacked", text:"areas_vertical_stacked"},
+            {value:"areas_vertical", text:"areas_vertical"}
+        ],
+        Bar: [
+            {value:"bars_dual_measure_floating", text:"bars_dual_measure_floating"},
+            {value:"bars_horizontal_floating", text:"bars_horizontal_floating"},
+            {value:"bars_horizontal_grouped_stacked_100pct", text:"bars_horizontal_grouped_stacked_100pct"},
+            {value:"bars_horizontal_grouped_stacked", text:"bars_horizontal_grouped_stacked"},
+            {value:"bars_horizontal_grouped", text:"bars_horizontal_grouped"},
+            {value:"bars_horizontal_mekko", text:"bars_horizontal_mekko"},
+            {value:"bars_horizontal_stacked_100pct", text:"bars_horizontal_stacked_100pct"},
+            {value:"bars_horizontal_stacked", text:"bars_horizontal_stacked"},
+            {value:"bars_horizontal", text:"bars_horizontal"},
+            {value:"bars_matrix", text:"bars_matrix"},
+            {value:"bars_vertical_floating", text:"bars_vertical_floating"},
+            {value:"bars_vertical_grouped_stacked_100pct", text:"bars_vertical_grouped_stacked_100pct"},
+            {value:"bars_vertical_grouped_stacked", text:"bars_vertical_grouped_stacked"},
+            {value:"bars_vertical_grouped", text:"bars_vertical_grouped"},
+            {value:"bars_vertical_mekko", text:"bars_vertical_mekko"},
+            {value:"bars_vertical_stacked_100pct", text:"bars_vertical_stacked_100pct"},
+            {value:"bars_vertical_stacked", text:"bars_vertical_stacked"},
+            {value:"bars_vertical", text:"bars_vertical"}
+        ],
+        Bubble: [
+            {value:"bubbles_horizontal_grouped", text:"bubbles_horizontal_grouped"},
+            {value:"bubbles_horizontal_lollipop", text:"bubbles_horizontal_lollipop"},
+            {value:"bubbles_matrix", text:"bubbles_matrix"},
+            {value:"bubbles_standard", text:"bubbles_standard"},
+            {value:"bubbles_vertical_grouped", text:"bubbles_vertical_grouped"},
+            {value:"bubbles_vertical_lollipop", text:"bubbles_vertical_lollipop"}
+        ],
+        Line: [
+            {value:"lines_curvy", text:"lines_curvy"},
+            {value:"lines_dual_measure", text:"lines_dual_measure"},
+            {value:"lines_horizontal_grouped_stacked", text:"lines_horizontal_grouped_stacked"},
+            {value:"lines_horizontal_grouped", text:"lines_horizontal_grouped"},
+            {value:"lines_horizontal_stacked", text:"lines_horizontal_stacked"},
+            {value:"lines_horizontal", text:"lines_horizontal"},
+            {value:"lines_vertical_grouped_stacked", text:"lines_vertical_grouped_stacked"},
+            {value:"lines_vertical_grouped", text:"lines_vertical_grouped"},
+            {value:"lines_vertical_stacked", text:"lines_vertical_stacked"},
+            {value:"lines_vertical", text:"lines_vertical"}
+        ],
+        Pie: [
+            {value:"pie_bubble", text:"pie_bubble"},
+            {value:"pie_horizontal_grouped", text:"pie_horizontal_grouped"},
+            {value:"pie_horizontal_lollipop", text:"pie_horizontal_lollipop"},
+            {value:"pie_matrix", text:"pie_matrix"},
+            {value:"pie_scatter", text:"pie_scatter"},
+            {value:"pie_standard", text:"pie_standard"},
+            {value:"pie_vertical_grouped", text:"pie_vertical_grouped"},
+            {value:"pie_vertical_lollipop", text:"pie_vertical_lollipop"}
+        ],
+        Ring: [
+            {value:"ring_bubble", text:"ring_bubble"},
+            {value:"ring_horizontal_grouped", text:"ring_horizontal_grouped"},
+            {value:"ring_horizontal_lollipop", text:"ring_horizontal_lollipop"},
+            {value:"ring_matrix", text:"ring_matrix"},
+            {value:"ring_multiple", text:"ring_multiple"},
+            {value:"ring_scatter", text:"ring_scatter"},
+            {value:"ring_standard", text:"ring_standard"},
+            {value:"ring_vertical_grouped", text:"ring_vertical_grouped"},
+            {value:"ring_vertical_lollipop", text:"ring_vertical_lollipop"}
+        ],
+        Scatter: [
+            {value:"scatter_horizontal_grouped", text:"scatter_horizontal_grouped"},
+            {value:"scatter_horizontal_lollipop", text:"scatter_horizontal_lollipop"},
+            {value:"scatter_matrix", text:"scatter_matrix"},
+            {value:"scatter_standard", text:"scatter_standard"},
+            {value:"scatter_vertical_grouped", text:"scatter_vertical_grouped"},
+            {value:"scatter_vertical_lollipop", text:"scatter_vertical_lollipop"}
+        ],
+        Step: [
+            {value:"steps_horizontal_grouped_stacked", text:"steps_horizontal_grouped_stacked"},
+            {value:"steps_horizontal_grouped", text:"steps_horizontal_grouped"},
+            {value:"steps_horizontal_stacked", text:"steps_horizontal_stacked"},
+            {value:"steps_horizontal", text:"steps_horizontal"},
+            {value:"steps_vertical_grouped_stacked", text:"steps_vertical_grouped_stacked"},
+            {value:"steps_vertical_grouped", text:"steps_vertical_grouped"},
+            {value:"steps_vertical_stacked", text:"steps_vertical_stacked"},
+            {value:"steps_vertical", text:"steps_vertical"}
+        ],
+        StepArea: [
+            {value:"area_steps_horizontal_grouped_100pct", text:"area_steps_horizontal_grouped_100pct"},
+            {value:"area_steps_horizontal_grouped_stacked", text:"area_steps_horizontal_grouped_stacked"},
+            {value:"area_steps_horizontal_grouped", text:"area_steps_horizontal_grouped"},
+            {value:"area_steps_horizontal_stacked_100pct", text:"area_steps_horizontal_stacked_100pct"},
+            {value:"area_steps_horizontal_stacked", text:"area_steps_horizontal_stacked"},
+            {value:"area_steps_horizontal", text:"area_steps_horizontal"},
+            {value:"area_steps_vertical_grouped_100pct", text:"area_steps_vertical_grouped_100pct"},
+            {value:"area_steps_vertical_grouped_stacked", text:"area_steps_vertical_grouped_stacked"},
+            {value:"area_steps_vertical_grouped", text:"area_steps_vertical_grouped"},
+            {value:"area_steps_vertical_stacked_100pct", text:"area_steps_vertical_stacked_100pct"},
+            {value:"area_steps_vertical_stacked", text:"area_steps_vertical_stacked"},
+            {value:"area_steps_vertical", text:"area_steps_vertical"}
+        ]
+    };
+
+    emptyCharts();
+
+    chartsList = document.getElementById("chart");
+    charts[chartType].forEach(function(chart) {
+        var option = document.createElement("option");
+        option.value = chart.value;
+        option.innerHTML = chart.text;
+        chartsList.appendChild(option);
+    });
+    chartsList.selectedIndex = 0;
+}
+
+window.onload = function() {
+    populateCharts("Bar");
+    onChartChange();
+}
+
+function hideAllTabs() {
+    var i, tabcontent;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+}
+
+function deactivateAllTabLinks() {
+    var i, tablinks;
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+}
+
+function drawChart(evt) {
+    var chartName, drawChartTab, chartFrame, src;
+    hideAllTabs();
+    deactivateAllTabLinks();
+
+    drawChartTab = document.getElementById("drawChart");
+    drawChartTab.style.display = "block";
+    evt.currentTarget.className += " active";
+
+    chartName = document.getElementById("chart").value;
+    src ="../examples/" + chartName + ".html";
+    chartFrame = document.getElementById("chartFrame");
+    chartFrame.src = "../examples/" + chartName + ".html"
+}
+
+function onChartChange() {
+    var element =  document.getElementById("drawChartLink");
+    if ("createEvent" in document) {
+        var evt = document.createEvent("MouseEvents");
+        evt.initEvent("click", false, true);
+        element.dispatchEvent(evt);
+    }
+    else
+        element.fireEvent("onchange");
+}
+
+function showChartConfig(evt) {
+    var chartName, chartConfigTab;
+    hideAllTabs();
+    deactivateAllTabLinks();
+
+    chartConfigTab = document.getElementById("showChartConfig");
+    chartConfigTab.style.display = "block";
+    evt.currentTarget.className += " active";
+
+    chartName = document.getElementById("chart").value;
+    src ="../examples/chartconfig/" + chartName + ".json";
+    d3.json(src, function(chartConfig) {
+        chartConfigText = document.getElementById("chartConfigText");
+        chartConfigText.value = JSON.stringify(chartConfig, null, 4);
+    });
+}
+
+function showHTML(evt) {
+    var chartName, htmlTab, htmlText;
+    hideAllTabs();
+    deactivateAllTabLinks();
+
+    htmlTab = document.getElementById("showHTML");
+    htmlTab.style.display = "block";
+    evt.currentTarget.className += " active";
+
+    chartName = document.getElementById("chart").value;
+    src ="../examples/" + chartName + ".html";
+    d3.text(src, "text/plain", function(error, html) {
+        htmlText = document.getElementById("htmlText");
+        htmlText.value = html;
+    });
+}
+</script>
+
+</body>
+</html>

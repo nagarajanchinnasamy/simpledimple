@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <script src="../bower_components/d3/d3.min.js"></script>
+<script src="../bower_components/dimple/dist/dimple.v2.1.4.min.js"></script>
+<script src="../dist/simpledimple.v1.0.0.js"></script>
 <style>
 body {font-family: "Lato", sans-serif;}
 
@@ -40,7 +42,7 @@ ul.tab li a:focus, .active {
 /* Style the tab content */
 .tabcontent {
     display: none;
-    height: 450px;
+    height: 95%;
     padding: 6px 12px;
     border: 1px solid #ccc;
     border-top: none;
@@ -48,66 +50,176 @@ ul.tab li a:focus, .active {
 </style>
 <body>
 <div>
-    <div  style="float:left;margin:10px;">
-        <h4>Select a chart type:</h4>
-        <select id="chartType" onchange="onChartTypeChange()">
-            <option selected="selected", value="Bar">Bar Charts</a></option>
-            <option value="Bubble">Bubble Charts</a></option>
-            <option value="Line">Line Charts</a></option>
-            <option value="Step">Step Charts</a></option>
-            <option value="Pie">Pie Charts</a></option>
-            <option value="Ring">Ring Charts</a></option>
-            <option value="Scatter">Scatter Charts</a></option>
-            <option value="Area">Area Charts</a></option>
-            <option value="StepArea">Step Area Charts</a></option>
-            <option value="Advanced">Advanced Custom Charts</a></option>
-        </select>
-    </div>
-    <div style="float:left;margin:10px;">
-        <h4>Select a chart:</h4>
-        <select id="chart" onchange="onChartChange()">
-        </select>
-    </div>
 </div>
-<div style="clear: left; width: 95%">
+<div style="clear: left;">
     <div>
         <ul class="tab">
-          <li><a id="drawChartLink" href="#" class="tablinks" onclick="drawChart(event)">Chart</a></li>
-          <li><a id="showChartConfigLink" href="#" class="tablinks" onclick="showChartConfig(event)">JSON</a></li>
-          <li><a id="showHTMLLink" href="#" class="tablinks" onclick="showHTML(event)">HTML</a></li>
+            <li><a id="dataTabLink" href="#" class="tablinks" onclick="showTabContent(event, 'dataTabContent', 'dataTabLink')">Data</a></li>
+            <li><a id="chartTabLink" href="#" class="tablinks" onclick="showTabContent(event, 'chartTabContent', 'chartTabLink')">Chart</a></li>
         </ul>
     </div>
 
-    <div id="drawChart" class="tabcontent">
-        <iframe id="chartFrame" style="width: 100%; height: 100%;"></iframe>
+    <div id="dataTabContent" class="tabcontent">
+        <div>
+            <div style="float:left; margin: 10px;">
+                <input type="radio" name="dataFormat" value="tsv" checked="checked"> tsv</input>
+                <input type="radio" name="dataFormat" value="csv"> csv</input>
+                <input type="radio" name="dataFormat" value="json"> json</input>
+            </div>
+            <div style="float:left; margin: 10px;">
+                <input type="text" id="dataURL" size="30" maxlength="800" placeholder="Enter URL and load data..."></input>
+            </div>
+            <div style="float:left; margin: 10px;">
+                <button type="button" onclick="loadData()">Load Data</button>
+            </div>
+            <div style="float:left; margin: 10px;">
+                <button type="button" onclick="loadSampleData()"> -OR- Load Sample Data</button>
+            </div>
+        </div>
+        <div  style="clear: left; width: 100%; height: 100%">
+            <textarea id="dataText" style="width: 90%; height: 90%;" rows="30"></textarea>
+        </div>
     </div>
 
-    <div id="showChartConfig" class="tabcontent">
-        <textarea id="chartConfigText" readonly="readonly" style="width: 100%; height: 100%;"></textarea>
-    </div>
-
-    <div id="showHTML" class="tabcontent">
-        <textarea id="htmlText" readonly="readonly" style="width: 100%; height: 100%;"></textarea>
+    <div id="chartTabContent" class="tabcontent">
+        <div>
+            <div style="float:left; margin: 10px; text-align: center;">
+                <div  style="float:left;margin:10px;">
+                    <label>Sample chart type: </label>
+                    <select id="sampleChartTypeSelect" onchange="onSampleChartTypeSelectionChange()">
+                        <option selected="selected", value="Bar">Bar Charts</a></option>
+                        <option value="Bubble">Bubble Charts</a></option>
+                        <option value="Line">Line Charts</a></option>
+                        <option value="Step">Step Charts</a></option>
+                        <option value="Pie">Pie Charts</a></option>
+                        <option value="Ring">Ring Charts</a></option>
+                        <option value="Scatter">Scatter Charts</a></option>
+                        <option value="Area">Area Charts</a></option>
+                        <option value="StepArea">Step Area Charts</a></option>
+                        <option value="Advanced">Advanced Custom Charts</a></option>
+                    </select>
+                </div>
+                <div style="float:left;margin:10px;">
+                    <label>Sample chart: </label>
+                    <select id="sampleChartSelect" onchange="onSampleChartSelectionChange()">
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div style="clear:left;margin:10px;">
+            <textarea id="chartConfigText" rows="20" style="width: 100%;" placeholder="Enter Chart Configuration JSON Here..."></textarea>
+        </div>
+        <div style="clear:left;margin:10px; text-align: center;">
+            <button type="button" onclick="drawChart()"> Draw Chart  </button>
+        </div>
+        <div style="clear:left;margin:10px;">
+            <div id="chartContainer" style="text-align: center;"></div>
+        </div>
     </div>
 </div>
 
 <script>
+var globalVars = {
+    data: []
+};
 
-function onChartTypeChange() {
-    var x = document.getElementById("chartType").value;
-    populateCharts(x);
-    onChartChange();
+window.onload = function() {
+    showTabContent(null, "dataTabContent", "dataTabLink");
+    onSampleChartTypeSelectionChange();
 }
 
-function emptyCharts() {
-    var chartsList = document.getElementById("chart");
+function hideAllTabs() {
+    var i, tabcontent;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+}
+
+function deactivateAllTabLinks() {
+    var i, tablinks;
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+}
+
+function showTabContent(evt, tabId, linkId) {
+    var tabContent, tabLink;
+    hideAllTabs();
+    deactivateAllTabLinks();
+
+    tabContent = document.getElementById(tabId);
+    tabContent.style.display = "block";
+    tabLink = document.getElementById(linkId);
+    tabLink.className += " active";
+}
+
+function loadData() {
+    var dataFormats, dataFormat, i, dataURL;
+    dataFormats = document.getElementsByName('dataFormat');
+    for(i = 0; i < dataFormats.length; i++){
+        if(dataFormats[i].checked){
+            dataFormat = dataFormats[i].value;
+        }
+    }
+    dataURL = document.getElementById("dataURL").value;
+
+    if(!dataURL || !dataURL.length) {
+        alert("Please enter URL and click on Load Data");
+        return;
+    }
+
+    if (dataFormat === "tsv") {
+        d3.tsv(dataURL, function(error, data) {
+            showData(error, data);
+        });
+    } else if (dataFormat === "csv") {
+        d3.csv(dataURL, function(error, data) {
+            showData(error, data);
+        });
+    } else if (dataFormat === "json") {
+        d3.json(dataURL, function(error, data) {
+            showData(error, data);
+        });
+    }
+}
+
+function loadSampleData() {
+    d3.tsv("/data/example_data.tsv", function(error, data) {
+        showData(error, data);
+    });
+}
+
+function showData(error, data) {
+    var dataText, dataToShow;
+
+    if (error) {
+        alert("Loading data failed.");
+        throw error;
+    }
+
+    globalVars.data = data;
+    dataToShow = data.slice(0, 10);
+    dataText = document.getElementById("dataText");
+    dataText.value = "Only first 10 records are shown!!!\n" + JSON.stringify(dataToShow, null, 2);
+}
+
+function onSampleChartTypeSelectionChange() {
+    var x = document.getElementById("sampleChartTypeSelect").value;
+    populateSampleChartSelect(x);
+    onSampleChartSelectionChange();
+}
+
+function emptySampleChartSelect() {
+    var chartsList = document.getElementById("sampleChartSelect");
     var i;
     for(i = chartsList.options.length - 1 ; i >= 0 ; i--) {
         chartsList.remove(i);
     }
 }
 
-function populateCharts(chartType) {
+function populateSampleChartSelect(chartType) {
     var charts = {
         Advanced: [
             {value:"advanced_animated_multiple_pie_bubbles", text:"Animated multiple pie bubbles"},
@@ -240,9 +352,9 @@ function populateCharts(chartType) {
         ]
     };
 
-    emptyCharts();
+    emptySampleChartSelect();
 
-    chartsList = document.getElementById("chart");
+    chartsList = document.getElementById("sampleChartSelect");
     charts[chartType].forEach(function(chart) {
         var option = document.createElement("option");
         option.value = chart.value;
@@ -252,63 +364,15 @@ function populateCharts(chartType) {
     chartsList.selectedIndex = 0;
 }
 
-window.onload = function() {
-    populateCharts("Bar");
-    onChartChange();
+
+function onSampleChartSelectionChange() {
+    showSampleChartConfig();
 }
 
-function hideAllTabs() {
-    var i, tabcontent;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
-}
+function showSampleChartConfig() {
+    var chartName, chartConfigText, chartConfig;
 
-function deactivateAllTabLinks() {
-    var i, tablinks;
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-}
-
-function drawChart(evt) {
-    var chartName, drawChartTab, chartFrame, src;
-    hideAllTabs();
-    deactivateAllTabLinks();
-
-    drawChartTab = document.getElementById("drawChart");
-    drawChartTab.style.display = "block";
-    evt.currentTarget.className += " active";
-
-    chartName = document.getElementById("chart").value;
-    src ="../examples/" + chartName + ".html";
-    chartFrame = document.getElementById("chartFrame");
-    chartFrame.src = "../examples/" + chartName + ".html"
-}
-
-function onChartChange() {
-    var element =  document.getElementById("drawChartLink");
-    if ("createEvent" in document) {
-        var evt = document.createEvent("MouseEvents");
-        evt.initEvent("click", false, true);
-        element.dispatchEvent(evt);
-    }
-    else
-        element.fireEvent("onchange");
-}
-
-function showChartConfig(evt) {
-    var chartName, chartConfigTab;
-    hideAllTabs();
-    deactivateAllTabLinks();
-
-    chartConfigTab = document.getElementById("showChartConfig");
-    chartConfigTab.style.display = "block";
-    evt.currentTarget.className += " active";
-
-    chartName = document.getElementById("chart").value;
+    chartName = document.getElementById("sampleChartSelect").value;
     src ="../examples/chartconfig/" + chartName + ".json";
     d3.json(src, function(chartConfig) {
         chartConfigText = document.getElementById("chartConfigText");
@@ -316,21 +380,17 @@ function showChartConfig(evt) {
     });
 }
 
-function showHTML(evt) {
-    var chartName, htmlTab, htmlText;
-    hideAllTabs();
-    deactivateAllTabLinks();
+function drawChart() {
+    var chartContainer, chartConfigText, myChart;
 
-    htmlTab = document.getElementById("showHTML");
-    htmlTab.style.display = "block";
-    evt.currentTarget.className += " active";
+    var chartContainer = document.getElementById("chartContainer");
+    while (chartContainer.firstChild) {
+        chartContainer.removeChild(chartContainer.firstChild);
+    }
 
-    chartName = document.getElementById("chart").value;
-    src ="../examples/" + chartName + ".html";
-    d3.text(src, "text/plain", function(error, html) {
-        htmlText = document.getElementById("htmlText");
-        htmlText.value = html;
-    });
+    chartConfigText = document.getElementById("chartConfigText");
+    myChart = new simpledimple.chart("#chartContainer", JSON.parse(chartConfigText.value), globalVars.data);
+    myChart.draw();
 }
 </script>
 

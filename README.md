@@ -43,11 +43,11 @@ Aim of [simpledimple.js](http://nagarajanchinnasamy.com/simpledimple) is to furt
 
 ## Where can I see the demo?
 
-You can see the live demo at [examples page](http://nagarajanchinnasamy.com/simpledimple/viewer.html).
+You can see the live demo at [examples page](http://nagarajanchinnasamy.com/simpledimple/viewer/index.html).
 
 ## Is there an online tool to experiment and design my own charts?
 
-Yes. You can use the [fiddle tool](http://nagarajanchinnasamy.com/simpledimple/fiddle.html) to:
+Yes. You can use the [fiddle tool](http://nagarajanchinnasamy.com/simpledimple/fiddle/index.html) to:
 
     * Load sample or your own data
     * Browse and load sample chart configuration and edit

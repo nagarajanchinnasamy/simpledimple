@@ -1,8 +1,8 @@
-## simpledimple.js ##
+## Simpledimple.js ##
 
 Aim of [simpledimple.js](http://nagarajanchinnasamy.com/simpledimple) is to further simplify the use of powerful visualization library [dimple](http://dimplejs.org/).
 
-[simpledimple.js](http://nagarajanchinnasamy.com/simpledimple)
+[Simpledimple.js](http://nagarajanchinnasamy.com/simpledimple)
 
     * Separates the configuration of properties of charts from JavaScript code
     * Facilitates externalization of the parameters of a chart thus opening the possibilities of:
@@ -10,7 +10,7 @@ Aim of [simpledimple.js](http://nagarajanchinnasamy.com/simpledimple) is to furt
         * External storage and
         * Exchange of charts
 
-[simpledimple.js](http://nagarajanchinnasamy.com/simpledimple) is a wrapper around dimple's API. This wrapper accepts the entire configuration of a chart (E.g., parameters of axis, series etc.) as a single JavaScript object and internally handles the calls to be made to [dimple](http://dimplejs.org/). Following is an example chart configuration:
+[Simpledimple.js](http://nagarajanchinnasamy.com/simpledimple) is a wrapper around dimple's API. This wrapper accepts the entire configuration of a chart (E.g., parameters of axis, series etc.) as a single JavaScript object and internally handles the calls to be made to [dimple](http://dimplejs.org/). Following is an example chart configuration:
 
     var chartConfig = {
         width: 590,
@@ -70,7 +70,7 @@ Please first check the [issues](https://github.com/nagarajanchinnasamy/simpledim
 
 ## Copyright & Licence (MIT License)
 
-simpledimple.js is © 2016 Nagarajan Chinnasamy, Mindtree, other contributors
+Simpledimple.js is © 2016 Nagarajan Chinnasamy, Mindtree, other contributors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 

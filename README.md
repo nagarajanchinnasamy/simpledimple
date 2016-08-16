@@ -40,9 +40,9 @@ This wrapper API accepts the entire configuration of a chart (E.g., parameters o
         }]
     };
 
-  To draw a chart, you need to create a `simpledimple.chart` object and invoke `draw()` function of that chart object passing the chart configuration:
+  To draw a chart, you need to create a chart by invoking `simpledimple.newChart` function and invoke `draw()` function on the newly created chart object passing the chart configuration:
 
-    var myChart = new simpledimple.chart("#chartContainer", chartConfig, data);
+    var myChart = simpledimple.newChart("#chartContainer", chartConfig, data);
     myChart.draw();
 
 ## How do I load the code?
@@ -74,9 +74,27 @@ Yes. You can use the [fiddle tool](http://nagarajanchinnasamy.com/simpledimple/f
 
 ## How can I build the code and run the tests?
 
-To install the development dependencies, just run `npm install`, which will create a `node_modules` directory with the files required to run the [Grunt](http://gruntjs.com/) build system.
+Install grunt and bower using:
 
-After modifying any of the `.js` files at the top of the repo, you can compile/minify the files into the `dist` directory by running `grunt` command. This also starts a webserver bound to port 3001 that can be used to list the examples using the URL: http://localhost:3001/examples/
+    npm install -g grunt
+    npm install -g bower
+
+To install the development dependencies, just run:
+
+    npm install
+    bower install
+
+which will create `node_modules` and `bower_components` folders with the files required to run the [Grunt](http://gruntjs.com/) build system.
+
+After modifying any of the `.js` files at the top of the repo, you can compile/minify the files into the `dist` directory by running
+
+    grunt
+
+This also starts a webserver bound to port 3001 that can be used to browse simpledimple home page that has links to **examples** and **fiddle** application. Browse the URL: http://localhost:3001/
+
+To run the tests, use:
+
+    grunt test
 
 ## How can I contribute?
 

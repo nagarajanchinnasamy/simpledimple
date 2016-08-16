@@ -8,7 +8,7 @@
       // Latest period only
       dimple.filterData(data, "Date", "01/12/2012");
       d3.json("chartconfig/advanced_interactive_legends.json", function(chartConfig) {
-          var myChart = new simpledimple.chart("#chartContainer", chartConfig, data);
+          var myChart = simpledimple.newChart("#chartContainer", chartConfig, data);
           myChart.draw();
       });
   });

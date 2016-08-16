@@ -11,7 +11,7 @@
   <script type="text/javascript">
     d3.tsv("/data/example_data.tsv", function (data) {
         d3.json("chartconfig/pie_standard.json", function(chartConfig) {
-            var myChart = new simpledimple.chart("#chartContainer", chartConfig, data);
+            var myChart = simpledimple.newChart("#chartContainer", chartConfig, data);
             myChart.draw();
         });
     });

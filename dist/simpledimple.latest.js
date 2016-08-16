@@ -43,13 +43,8 @@
     "use strict";
     /*jslint unparam: true*/
 
-    // Create the stub object
-    var simpledimple = {
-        version: "1.0.0"
-    };
-
     // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.chart
-    simpledimple.chart = function (parentSelector, chartConfig, data) {
+    function SimpleDimpleChart(parentSelector, chartConfig, data) {
         var bounds, noFormats, i, n, axis, series, legend, aClass, colors, color, margins, makeEventHandler;
 
         makeEventHandler = function (handler, chart, data, userData) {
@@ -515,6 +510,16 @@
         if (chartConfig.afterDraw !== undefined) {
             /*jslint evil: true */
             this.afterDraw = new Function("simpledimple", chartConfig.afterDraw);
+        }
+
+        return this;
+    }
+
+    // Create the stub object
+    var simpledimple = {
+        version: "1.0.0",
+        newChart: function (parentSelector, chartConfig, data) {
+            return new SimpleDimpleChart(parentSelector, chartConfig, data);
         }
     };
 

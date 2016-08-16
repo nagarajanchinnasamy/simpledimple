@@ -11,11 +11,12 @@ for (file in window.__karma__.files) {
 
 requirejs.config({
     // Karma serves files from '/base'
-    baseUrl: '/base/src',
+    baseUrl: '/base',
 
     paths: {
-        'dimple': '../tmp/dimple',
-        'd3': '../lib/d3.v3.4.8.min'
+        'd3': 'bower_components/d3/d3.min',
+        'dimple': 'bower_components/dimple/dist/dimple.latest.min',
+        'simpledimple': 'tmp/simpledimple'
     },
 
     // ask Require.js to load these files (all our tests)

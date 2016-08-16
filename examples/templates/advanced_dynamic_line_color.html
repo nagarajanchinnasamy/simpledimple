@@ -10,7 +10,7 @@
       data = dimple.filterData(data, "Channel", "Hypermarkets");
 
       d3.json("chartconfig/advanced_dynamic_line_color.json", function(chartConfig) {
-          var myChart = new simpledimple.chart("#chartContainer", chartConfig, data);
+          var myChart = simpledimple.newChart("#chartContainer", chartConfig, data);
           myChart.draw();
       });
   });

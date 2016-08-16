@@ -13,7 +13,7 @@
       // Focus on the top 6 brands
       data = dimple.filterData(data, "Brand", ["Theta", "Omicron", "Kappa", "Beta", "Lambda", "Alpha"]);
       d3.json("chartconfig/advanced_lollipop_with_hover.json", function(chartConfig) {
-          var myChart = new simpledimple.chart("#chartContainer", chartConfig, data);
+          var myChart = simpledimple.newChart("#chartContainer", chartConfig, data);
           myChart.draw();
       });
   });

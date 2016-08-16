@@ -7,7 +7,7 @@
     d3.tsv("/data/example_data.tsv", function (data) {        // Filter the data for a single channel
         data = dimple.filterData(data, "Channel", "Hypermarkets");
         d3.json("chartconfig/advanced_price_range_lollipop.json", function(chartConfig) {
-            var myChart = new simpledimple.chart("#chartContainer", chartConfig, data);
+            var myChart = simpledimple.newChart("#chartContainer", chartConfig, data);
             myChart.draw();
         });
     });

@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/nagarajanchinnasamy/simpledimple#readme",
   "devDependencies": {
+    "express": "^4.14.0",
     "grunt": "^1.0.1",
     "grunt-contrib-concat": "^1.0.1",
     "grunt-contrib-connect": "^1.0.2",
@@ -31,6 +32,17 @@
     "grunt-contrib-uglify": "^2.0.0",
     "grunt-contrib-watch": "^1.0.0",
     "grunt-jslint": "^1.1.14",
+    "grunt-karma": "^2.0.0",
+    "jasmine": "^2.4.1",
+    "karma": "^1.2.0",
+    "karma-chrome-launcher": "^1.0.1",
+    "karma-coffee-preprocessor": "^1.0.1",
+    "karma-firefox-launcher": "^1.0.0",
+    "karma-html2js-preprocessor": "^1.0.0",
+    "karma-jasmine": "^1.0.2",
+    "karma-phantomjs-launcher": "^1.0.1",
+    "karma-requirejs": "^1.0.0",
+    "karma-script-launcher": "^1.0.0",
     "requirejs": "^2.2.0"
   },
   "buildDependencies": {

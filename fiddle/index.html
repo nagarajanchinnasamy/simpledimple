@@ -390,7 +390,7 @@ function drawChart() {
     }
 
     chartConfigText = document.getElementById("chartConfigText");
-    myChart = new simpledimple.chart("#chartContainer", JSON.parse(chartConfigText.value), globalVars.data);
+    myChart = simpledimple.newChart("#chartContainer", JSON.parse(chartConfigText.value), globalVars.data);
     myChart.draw();
 }
 </script>

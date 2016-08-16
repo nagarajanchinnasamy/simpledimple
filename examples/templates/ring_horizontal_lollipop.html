@@ -9,7 +9,7 @@
           "01/07/2012", "01/08/2012", "01/09/2012",
           "01/10/2012", "01/11/2012", "01/12/2012"]);
         d3.json("chartconfig/ring_horizontal_lollipop.json", function(chartConfig) {
-            var myChart = new simpledimple.chart("#chartContainer", chartConfig, data);
+            var myChart = simpledimple.newChart("#chartContainer", chartConfig, data);
             myChart.draw();
         });
     });

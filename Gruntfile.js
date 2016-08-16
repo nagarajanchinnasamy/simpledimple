@@ -13,6 +13,8 @@ module.exports = function (grunt) {
         copy: {
             main: {
                 files: [
+                    { src: '<%= pkg.name %>.js', dest: 'tmp/<%= pkg.name %>.js'},
+                    { src: '<%= pkg.name %>.js', dest: 'tmp/<%= pkg.name %>.js'},
                     { src: '<%= pkg.name %>.js', dest: 'dist/<%= pkg.name %>.v<%= pkg.version %>.js'},
                     { src: 'dist/<%= pkg.name %>.v<%= pkg.version %>.min.js', dest: 'dist/<%= pkg.name %>.latest.min.js'},
                     { src: 'dist/<%= pkg.name %>.v<%= pkg.version %>.js', dest: 'dist/<%= pkg.name %>.latest.js'}
@@ -89,6 +91,8 @@ module.exports = function (grunt) {
                 frameworks: ['jasmine', 'requirejs'],
                 files: [
                     'test/test-main.js',
+                    { pattern: 'bower_components/d3/d3.min.js', included: false },
+                    { pattern: 'bower_components/dimple/dist/dimple.latest.min.js', included: false },
                     { pattern: 'lib/**/*.min.js', included: false },
                     { pattern: 'tmp/*.js', included: false },
                     { pattern: 'test/**/*.spec.js', included: false }

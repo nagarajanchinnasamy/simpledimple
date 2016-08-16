@@ -36,7 +36,7 @@
       { "F":5, "Seg":"P", "BarX":"R", "BarY":20, "BubX":0, "BubY":0 }
     ];
     d3.json("chartconfig/advanced_pong.json", function(chartConfig) {
-        var myChart = new simpledimple.chart("#chartContainer", chartConfig, data);
+        var myChart = simpledimple.newChart("#chartContainer", chartConfig, data);
         // Draw the main chart
         myChart.draw();
     });

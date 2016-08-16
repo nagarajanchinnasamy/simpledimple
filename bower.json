@@ -13,11 +13,10 @@
     "chart",
     "javascript"
   ],
-  "homepage": "",
+  "homepage": "https://github.com/nagarajanchinnasamy/simpledimple#readme",
   "ignore": [
     "**/.*",
     "node_modules",
-    "bower_components",
     "test",
     "tests"
   ],

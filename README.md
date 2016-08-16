@@ -1,6 +1,10 @@
 ## Simpledimple.js ##
 
-Aim of [simpledimple.js](http://nagarajanchinnasamy.com/simpledimple) is to further simplify the use of powerful visualization library [dimple](http://dimplejs.org/).
+Aim of [simpledimple.js](http://nagarajanchinnasamy.com/simpledimple) is to further simplify the use of [dimple](http://dimplejs.org/)  - A simply powerful object-oriented API for business analytics powered by [D3.js](https://d3js.org/).
+
+[Simpledimple.js](http://nagarajanchinnasamy.com/simpledimple) is a lightweight thin wrapper API around dimple's API. Its originally written by [Nagarajan Chinnasamy](https://github.com/nagarajanchinnasamy/) at [Mindtree](http://mindtree.com/).
+
+## What does it do? ##
 
 [Simpledimple.js](http://nagarajanchinnasamy.com/simpledimple)
 
@@ -10,7 +14,7 @@ Aim of [simpledimple.js](http://nagarajanchinnasamy.com/simpledimple) is to furt
         * External storage and
         * Exchange of charts
 
-[Simpledimple.js](http://nagarajanchinnasamy.com/simpledimple) is a wrapper around dimple's API. This wrapper accepts the entire configuration of a chart (E.g., parameters of axis, series etc.) as a single JavaScript object and internally handles the calls to be made to [dimple](http://dimplejs.org/). Following is an example chart configuration:
+This wrapper API accepts the entire configuration of a chart (E.g., parameters of axis, series etc.) as a single JavaScript object and internally handles the calls to be made to [dimple](http://dimplejs.org/). Following is an example chart configuration:
 
     var chartConfig = {
         width: 590,

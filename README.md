@@ -41,6 +41,20 @@ Aim of [simpledimple.js](http://nagarajanchinnasamy.com/simpledimple) is to furt
     var myChart = new simpledimple.chart("#chartContainer", chartConfig, data);
     myChart.draw();
 
+## How do I load the code?
+
+Simpledimple.js implements the [Universal Module Definition (UMD)](https://github.com/umdjs/umd) pattern and so should be compatible with most approaches to script loading and dependency management: direct script loading with [RequireJS](http://requirejs.org/), [Browserify](http://browserify.org/) etc. For these options, you can grab it from [NPM](https://www.npmjs.com/package/simpledimple) with `npm install simpledimple` or via [Bower](http://bower.io/) with `bower install simpledimple`.
+
+If you are loading the scripts directly (as in the [examples](http://nagarajanchinnasamy.com/simpledimple)), you need to:
+
+1. Load the dependencies:
+  1. d3  - `<script src="https://d3js.org/d3.v3.min.js"></script>`
+  2. dimple - `<script src="http://dimplejs.org/dist/dimple.v2.1.4.min.js"></script>`
+2. Load the simpledimple.js files:
+  1. `simpledimple.min.js`
+
+Here is the source code of an [exmaple](https://github.com/nagarajanchinnasamy/simpledimple/blob/master/examples/area_steps_horizontal.html) 
+
 ## Where can I see the demo?
 
 You can see the live demo at [examples page](http://nagarajanchinnasamy.com/simpledimple/viewer/index.html).

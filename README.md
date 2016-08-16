@@ -1,10 +1,8 @@
 ## Simpledimple.js ##
 
-[Simpledimple.js](http://nagarajanchinnasamy.com/simpledimple) is opensource lightweight JavaScript thin wrapper API around **dimple**.
+[Simpledimple.js](http://nagarajanchinnasamy.com/simpledimple) is an opensource lightweight JavaScript thin wrapper API around **dimple**. [Simpledimple.js](http://nagarajanchinnasamy.com/simpledimple) is originally written by [Nagarajan Chinnasamy](https://github.com/nagarajanchinnasamy/) at [Mindtree](http://mindtree.com/).
 
 [dimple](http://dimplejs.org/) is a simply powerful object-oriented API for business analytics powered by [D3.js](https://d3js.org/).
-
-[Simpledimple.js](http://nagarajanchinnasamy.com/simpledimple) is originally written by [Nagarajan Chinnasamy](https://github.com/nagarajanchinnasamy/) at [Mindtree](http://mindtree.com/).
 
 ## What does it do? ##
 

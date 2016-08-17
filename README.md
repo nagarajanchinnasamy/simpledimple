@@ -1,4 +1,4 @@
-[![npm](http://nagarajanchinnasamy.com/simpledimple/images/simpledimple_npm.svg)](https://www.npmjs.com/package/simpledimple) [![tests](http://nagarajanchinnasamy.com/simpledimple/images/simpledimple_tests.svg)](http://nagarajanchinnasamy.com/simpledimple/tests/) [![license](http://nagarajanchinnasamy.com/simpledimple/images/simpledimple_license.svg)](https://github.com/nagarajanchinnasamy/pivottable-simpledimple-renderer/blob/master/LICENSE)
+[![npm](http://nagarajanchinnasamy.com/simpledimple/images/simpledimple_npm.svg)](https://www.npmjs.com/package/simpledimple) [![tests](http://nagarajanchinnasamy.com/simpledimple/images/simpledimple_tests.svg)](https://github.com/nagarajanchinnasamy/simpledimple/blob/master/README.md#how-can-i-build-the-code-and-run-the-tests) [![license](http://nagarajanchinnasamy.com/simpledimple/images/simpledimple_license.svg)](https://github.com/nagarajanchinnasamy/pivottable-simpledimple-renderer/blob/master/LICENSE)
 
 
 ## Simpledimple.js ##

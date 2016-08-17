@@ -1,3 +1,6 @@
+[![npm](http://nagarajanchinnasamy.com/simpledimple/images/simpledimple_npm.svg)](https://www.npmjs.com/package/simpledimple) [![tests](http://nagarajanchinnasamy.com/simpledimple/images/simpledimple_tests.svg)](http://nagarajanchinnasamy.com/simpledimple/tests/) [![license](http://nagarajanchinnasamy.com/simpledimple/images/simpledimple_license.svg)](https://github.com/nagarajanchinnasamy/pivottable-simpledimple-renderer/blob/master/LICENSE)
+
+
 ## Simpledimple.js ##
 
 [Simpledimple.js](http://nagarajanchinnasamy.com/simpledimple) is an opensource lightweight JavaScript thin wrapper API around **dimple**. [Simpledimple.js](http://nagarajanchinnasamy.com/simpledimple) is originally written by [Nagarajan Chinnasamy](https://github.com/nagarajanchinnasamy/) at [Mindtree](http://mindtree.com/).
@@ -57,7 +60,7 @@ If you are loading the scripts directly (as in the [examples](http://nagarajanch
 2. Load the simpledimple.js files:
   1. `simpledimple.min.js`
 
-Here is the source code of an [exmaple](https://github.com/nagarajanchinnasamy/simpledimple/blob/master/examples/area_steps_horizontal.html) 
+Here is the source code of an [exmaple](https://github.com/nagarajanchinnasamy/simpledimple/blob/master/examples/area_steps_horizontal.html)
 
 ## Where can I see the demo?
 

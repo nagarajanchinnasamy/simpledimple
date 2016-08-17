@@ -3,22 +3,21 @@ module.exports = function (grunt) {
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        uglify: {
-            dist: {
-                files: {
-                    'dist/<%= pkg.name %>.v<%= pkg.version %>.min.js': ['<%= pkg.name %>.js']
-                }
-            }
-        },
         copy: {
             main: {
                 files: [
-                    { src: '<%= pkg.name %>.js', dest: 'tmp/<%= pkg.name %>.js'},
                     { src: '<%= pkg.name %>.js', dest: 'tmp/<%= pkg.name %>.js'},
                     { src: '<%= pkg.name %>.js', dest: 'dist/<%= pkg.name %>.v<%= pkg.version %>.js'},
                     { src: 'dist/<%= pkg.name %>.v<%= pkg.version %>.min.js', dest: 'dist/<%= pkg.name %>.latest.min.js'},
                     { src: 'dist/<%= pkg.name %>.v<%= pkg.version %>.js', dest: 'dist/<%= pkg.name %>.latest.js'}
                 ]
+            }
+        },
+        uglify: {
+            dist: {
+                files: {
+                    'dist/<%= pkg.name %>.v<%= pkg.version %>.min.js': ['<%= pkg.name %>.js']
+                }
             }
         },
         connect: {
@@ -112,9 +111,9 @@ module.exports = function (grunt) {
         watch: {
             src: {
                 files: [
-                    '<%= concat.test.src %>'
+                    '<%= pkg.name %>.js'
                 ],
-                tasks: ['concat:test', 'karma:continuous:run']
+                tasks: ['karma:continuous:run']
             },
             test: {
                 files: [
@@ -127,7 +126,6 @@ module.exports = function (grunt) {
     });
 
     // Load the plugin that provides the "uglify" task.
-    grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-copy');
@@ -138,7 +136,6 @@ module.exports = function (grunt) {
     // Propogate version into relevant files
     grunt.registerMultiTask('prop', 'Propagate Versions.', function () {
         function generateScriptElements(options, indent) {
-            console.log(">>>>>>>>>>>>>>>>>>>>>>>> generateScriptElements <<<<<<<<<<<<<<<<<<<<<<<<<");
             var createScriptElement = function (path) {
                     var scriptElement = '<script src="{path}"></script>';
                     return scriptElement.split("{path}").join(path);
@@ -171,14 +168,12 @@ module.exports = function (grunt) {
 
         var options, outPath, header, scriptTag, scripts;
         options = this.options();
-        console.log(">>>>>>>>>>>>>>>>>>>>>>>> options() <<<<<<<<<<<<<<<<<<<<<<<<<");
         outPath = options.exampleOutputPath;
         header = options.header;
         scriptTag = options.scriptTag;
         scripts = generateScriptElements(options);
 
         this.files.forEach(function (f) {
-            console.log(">>>>>>>>>>>>>>>>>>>>>>>> forEach <<<<<<<<<<<<<<<<<<<<<<<<<");
             f.src.filter(function (filepath) {
                 var result = true;
                 if (!grunt.file.exists(filepath)) {
@@ -187,7 +182,6 @@ module.exports = function (grunt) {
                 }
                 return result;
             }).map(function (filepath) {
-                console.log(">>>>>>>>>>>>>>>>>>>>>>>> map <<<<<<<<<<<<<<<<<<<<<<<<<");
                 // Read file source.
                 var src = grunt.file.read(filepath);
 
@@ -203,7 +197,6 @@ module.exports = function (grunt) {
 
     // Default tasks
     grunt.registerTask('default', ['jslint', 'uglify', 'copy', 'prop', 'connect']);
-    grunt.registerTask('test:unit', ['concat:test', 'karma:unit']);
+    grunt.registerTask('test:unit', ['karma:unit']);
     grunt.registerTask('test', ['karma:continuous:start', 'watch']);
-
 };

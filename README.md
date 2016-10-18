@@ -20,8 +20,6 @@
 This wrapper API accepts the entire configuration of a chart (E.g., parameters of axis, series etc.) as a single JavaScript object and internally handles the calls to be made to [dimple](http://dimplejs.org/). Following is an example chart configuration:
 
     var chartConfig = {
-        width: 590,
-        height: 400,
         bounds: {
             x: 70,
             y: 30,
@@ -43,9 +41,10 @@ This wrapper API accepts the entire configuration of a chart (E.g., parameters o
         }]
     };
 
-  To draw a chart, you need to create a chart by invoking `simpledimple.newChart` function and invoke `draw()` function on the newly created chart object passing the chart configuration:
-
-    var myChart = simpledimple.newChart("#chartContainer", chartConfig, data);
+  To create a chart, you use `new simpledimple.chart` passing the chart configuration and data. Then, invoke `draw()` function on the newly created chart object to draw the chart:
+  
+    var svg = dimple.newSvg("#chartContainer", 590, 400);
+    var myChart = new simpledimple.chart(svg, chartConfig, data);
     myChart.draw();
 
 ## How do I load the code?
@@ -56,7 +55,7 @@ If you are loading the scripts directly (as in the [examples](http://nagarajanch
 
 1. Load the dependencies:
   1. d3  - `<script src="https://d3js.org/d3.v3.min.js"></script>`
-  2. dimple - `<script src="http://dimplejs.org/dist/dimple.v2.1.4.min.js"></script>`
+  2. dimple - `<script src="http://dimplejs.org/dist/dimple.v2.2.0.min.js"></script>`
 2. Load the simpledimple.js files:
   1. `simpledimple.min.js`
 

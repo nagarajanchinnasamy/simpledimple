@@ -1,6 +1,4 @@
 {
-	"width": 590,
-	"height": 400,
     "axes": [
         {
             "position": "y",
@@ -50,25 +48,26 @@
             "stacked": false
 		}
 	],
-    "colors": [
+    "assignedColors": [
         {
             "tag": "Aperture",
-            "color":  "#80B1D3"
+            "fill":  "#80B1D3"
         },
         {
             "tag": "Black Mesa",
-            "color":  "#80B1D3",
+            "fill":  "#80B1D3",
             "darken": 0.5
         },
         {
             "tag": "Low Mark",
-            "color":  "#80B1D3",
+            "fill":  "#80B1D3",
             "lighten": 0.4
         },
         {
             "tag": "High Mark",
-            "color":  "#80B1D3",
+            "fill":  "#80B1D3",
             "lighten": 0.6
         }
-    ]
+    ],
+    "afterDraw": "\n        var chart = simpledimple._chart;\n        chart.axes[0].titleShape.remove();\n        chart.axes[1].titleShape.remove();\n\n"
 }

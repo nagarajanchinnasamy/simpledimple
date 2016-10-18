@@ -6,8 +6,8 @@
 <html>
 <div id="chartContainer">
     <script src="../bower_components/d3/d3.min.js"></script>
-  <script src="../bower_components/dimple/dist/dimple.v2.1.4.min.js"></script>
-  <script src="../dist/simpledimple.v1.0.0.js"></script>
+  <script src="../bower_components/dimple/dist/dimple.v2.2.0.min.js"></script>
+  <script src="../dist/simpledimple.v1.1.0.js"></script>
     <script type="text/javascript">
     // This code should support any data in this structure changing the data here
     // should be dealt with by the the code below.  The y axis min and max must
@@ -74,11 +74,12 @@
         y1.overrideMax = yMax;
         var y2 =  chartConfig.axes[2];
         y2.overrideMax = padBase + yMax;
-        var myChart = simpledimple.newChart("#chartContainer", chartConfig, waterfallData);
+        var svg = dimple.newSvg("#chartContainer", 590, 400);
+        var myChart = new simpledimple.chart(svg, chartConfig, waterfallData);
         // Assign blue, red and green using the default colors, these can
         // be any colors. We could assign transparency to the "pad" bars but
         // to avoid tooltips we delete the bars after drawing instead
-        var chart = myChart.chart;
+        var chart = myChart._chart;
         chart.assignColor("bar", chart.defaultColors[0].fill);
         chart.assignColor("negative", chart.defaultColors[1].fill);
         chart.assignColor("positive", chart.defaultColors[3].fill);

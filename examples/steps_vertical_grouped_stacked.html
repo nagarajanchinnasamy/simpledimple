@@ -6,13 +6,14 @@
 <html>
 <div id="chartContainer">
   <script src="../bower_components/d3/d3.min.js"></script>
-  <script src="../bower_components/dimple/dist/dimple.v2.1.4.min.js"></script>
-  <script src="../dist/simpledimple.v1.0.0.js"></script>
+  <script src="../bower_components/dimple/dist/dimple.v2.2.0.min.js"></script>
+  <script src="../dist/simpledimple.v1.1.0.js"></script>
   <script type="text/javascript">
     d3.tsv("/data/example_data.tsv", function (data) {
         data = dimple.filterData(data, "Owner", ["Aperture", "Black Mesa"])
         d3.json("chartconfig/steps_vertical_grouped_stacked.json", function(chartConfig) {
-            var myChart = simpledimple.newChart("#chartContainer", chartConfig, data);
+            var svg = dimple.newSvg("#chartContainer", 590, 400);
+            var myChart = new simpledimple.chart(svg, chartConfig, data);
             myChart.draw();
         });
     });

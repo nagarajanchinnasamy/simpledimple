@@ -50,7 +50,8 @@
     }, this);
 
     d3.json("chartconfig/advanced_time_axis.json", function(chartConfig) {
-        var myChart = simpledimple.newChart("#chartContainer", chartConfig, data);
+        var svg = dimple.newSvg("#chartContainer", 590, 400);
+        var myChart = new simpledimple.chart(svg, chartConfig, data);
         myChart.draw();
     });
     </script>

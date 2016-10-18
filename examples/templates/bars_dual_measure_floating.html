@@ -7,7 +7,8 @@
     d3.tsv("/data/example_data.tsv", function (data) {
         data = dimple.filterData(data, "Month", "Dec-11");
         d3.json("chartconfig/bars_dual_measure_floating.json", function(chartConfig) {
-            var myChart = simpledimple.newChart("#chartContainer", chartConfig, data);
+            var svg = dimple.newSvg("#chartContainer", 590, 400);
+            var myChart = new simpledimple.chart(svg, chartConfig, data);
             myChart.draw();
         });
     });

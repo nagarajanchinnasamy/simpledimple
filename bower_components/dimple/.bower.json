@@ -9,12 +9,12 @@
   "dependencies": {
     "d3": ">=3.5.2"
   },
-  "version": "2.1.4",
+  "version": "2.2.0",
   "homepage": "dimplejs.org",
   "authors": [
     "johnkiernander <jkiernander@pmsi-consulting.com>"
   ],
-  "main": "dist/dimple.v2.1.4.min.js",
+  "main": "dist/dimple.latest.min.js",
   "moduleType": [
     "amd"
   ],
@@ -39,14 +39,13 @@
     "src",
     "tmp"
   ],
-  "_release": "2.1.4",
+  "_release": "2.2.0",
   "_resolution": {
     "type": "version",
-    "tag": "2.1.4",
-    "commit": "8520dbda9a10a0d371431ffe31a7559b1f7ed6f0"
+    "tag": "2.2.0",
+    "commit": "dbf65501fb5eebfe1755f5a7d0f3f112e5c654f9"
   },
   "_source": "https://github.com/PMSI-AlignAlytics/dimple.git",
-  "_target": "2.1.4",
-  "_originalSource": "dimple",
-  "_direct": true
+  "_target": "2.2.0",
+  "_originalSource": "dimple"
 }

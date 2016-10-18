@@ -1,6 +1,6 @@
 {
   "name": "simpledimple",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Dimple-js Simplified",
   "main": "dist/simpledimple.latest.js",
   "scripts": {
@@ -46,7 +46,7 @@
     "requirejs": "^2.2.0"
   },
   "buildDependencies": {
-    "d3": "3.4.8",
-    "dimple": "2.1.4"
+    "d3": "3.5.2",
+    "dimple": "2.2.0"
   }
 }

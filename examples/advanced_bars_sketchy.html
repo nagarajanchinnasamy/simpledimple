@@ -6,8 +6,8 @@
 <html>
 <head>
   <script src="../bower_components/d3/d3.min.js"></script>
-  <script src="../bower_components/dimple/dist/dimple.v2.1.4.min.js"></script>
-  <script src="../dist/simpledimple.v1.0.0.js"></script>
+  <script src="../bower_components/dimple/dist/dimple.v2.2.0.min.js"></script>
+  <script src="../dist/simpledimple.v1.1.0.js"></script>
   <!-- Props to Kimerly Geswein for her font Shadows Into Light */ -->
   <link href='http://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'>
   <style>
@@ -58,7 +58,8 @@
     <script type="text/javascript">
     d3.tsv("/data/example_data.tsv", function (data) {
         d3.json("chartconfig/advanced_bars_sketchy.json", function(chartConfig) {
-            var myChart = simpledimple.newChart("#chartContainer", chartConfig, data);
+            var svg = dimple.newSvg("#chartContainer", 590, 400);
+            var myChart = new simpledimple.chart(svg, chartConfig, data);
             myChart.draw();
         });
     });

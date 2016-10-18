@@ -69,11 +69,12 @@
         y1.overrideMax = yMax;
         var y2 =  chartConfig.axes[2];
         y2.overrideMax = padBase + yMax;
-        var myChart = simpledimple.newChart("#chartContainer", chartConfig, waterfallData);
+        var svg = dimple.newSvg("#chartContainer", 590, 400);
+        var myChart = new simpledimple.chart(svg, chartConfig, waterfallData);
         // Assign blue, red and green using the default colors, these can
         // be any colors. We could assign transparency to the "pad" bars but
         // to avoid tooltips we delete the bars after drawing instead
-        var chart = myChart.chart;
+        var chart = myChart._chart;
         chart.assignColor("bar", chart.defaultColors[0].fill);
         chart.assignColor("negative", chart.defaultColors[1].fill);
         chart.assignColor("positive", chart.defaultColors[3].fill);

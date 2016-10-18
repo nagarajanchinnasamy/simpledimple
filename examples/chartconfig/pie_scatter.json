@@ -14,7 +14,7 @@
         },
         {
             "position": "x",
-            "categoryFields": "Price Monthly Change"
+            "measure": "Price Monthly Change"
         },
         {
             "position": "p",

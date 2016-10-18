@@ -44,12 +44,18 @@
     /*jslint unparam: true*/
 
     // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.chart
-    function SimpleDimpleChart(parentSelector, chartConfig, data) {
-        var bounds, noFormats, i, n, axis, series, legend, aClass, colors, color, margins, makeEventHandler;
+    function SimpleDimpleChart(svg, chartConfig, data) {
+        var bounds, noFormats, i, n, axis, series, legend, aClass, colors, color, margins, makeEventHandler, makeAfterDrawHandler;
 
         makeEventHandler = function (handler, chart, data, userData) {
             return function (e) {
                 handler(e, chart, data, userData);
+            };
+        };
+
+        makeAfterDrawHandler =  function (handler, chart, data, userData) {
+            return function (shape, shapeData) {
+                handler(shape, shapeData, chart, data, userData);
             };
         };
 
@@ -96,15 +102,15 @@
             };
 
             if (isInt(position)) {
-                position = this.chart.axes[position];
+                position = this._chart.axes[position];
             }
 
             if (timeField) {
-                dimpleAxis = this.chart.addTimeAxis(position, timeField, inputFormat, outputFormat);
+                dimpleAxis = this._chart.addTimeAxis(position, timeField, inputFormat, outputFormat);
             } else if (config.position === "c" && config.colors) {
-                dimpleAxis = this.chart.addColorAxis(measure, config.colors);
+                dimpleAxis = this._chart.addColorAxis(measure, config.colors);
             } else {
-                dimpleAxis = this.chart.addAxis(position, categoryFields, measure, null);
+                dimpleAxis = this._chart.addAxis(position, categoryFields, measure, null);
             }
 
             // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.dimpleAxis#wiki-floatingBarWidth
@@ -222,7 +228,7 @@
                 lSeries.push(series[cSeries[j]]);
             }
 
-            dimpleLegend = this.chart.addLegend(config.x, config.y, config.width, config.height, config.horizontalAlign, lSeries);
+            dimpleLegend = this._chart.addLegend(config.x, config.y, config.width, config.height, config.horizontalAlign, lSeries);
 
             // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.dimpleLegend#wiki-fontSize
             if (config.fontSize !== undefined) {
@@ -264,7 +270,7 @@
             } else {
                 seriesAxes = null;
             }
-            dimpleSeries = this.chart.addSeries(categoryFields, plotFunctions[config.plot], seriesAxes);
+            dimpleSeries = this._chart.addSeries(categoryFields, plotFunctions[config.plot], seriesAxes);
             // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.dimpleSeries#wiki-x
             if (config.x !== undefined) {
                 dimpleSeries.x = this.axes[config.x];
@@ -317,9 +323,7 @@
             if (config.afterDraw !== undefined) {
                 /*jslint evil: true */
                 afterDraw = new Function("shape", "shapeData", "chart", "data", "userData", config.afterDraw);
-                dimpleSeries.afterDraw = function (shape, shapeData) {
-                    afterDraw(shape, shapeData, this.chart, this.data, this.userData);
-                };
+                dimpleSeries.afterDraw = makeAfterDrawHandler(afterDraw, this._chart, this.data, this.userData);
             }
             // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.dimpleSeries#wiki-interpolation
             if (config.interpolation !== undefined) {
@@ -359,7 +363,7 @@
                 for (j = 0; j < m; j++) {
                     /*jslint evil: true */
                     handler = new Function("e", "chart", "data", "userData", config.eventHandlers[j].handler);
-                    dimpleSeries.addEventHandler(config.eventHandlers[j].event, makeEventHandler(handler, this.chart, this.data, this.userData));
+                    dimpleSeries.addEventHandler(config.eventHandlers[j].event, makeEventHandler(handler, this._chart, this.data, this.userData));
                 }
             }
 
@@ -368,7 +372,7 @@
 
         // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.chart#wiki-draw
         this.draw = function (duration, noDataChange) {
-            this.chart.draw(duration, noDataChange);
+            this._chart.draw(duration, noDataChange);
             if (this.afterDraw) {
                 this.afterDraw(this);
             }
@@ -384,7 +388,7 @@
                 /*jslint evil: true */
                 tickHandler = new Function("e", config.onTick);
             }
-            storyboard = this.chart.setStoryboard(config.categoryFields, tickHandler);
+            storyboard = this._chart.setStoryboard(config.categoryFields, tickHandler);
 
             // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.storyboard#wiki-autoplay
             if (config.autoplay !== undefined) {
@@ -413,21 +417,21 @@
         // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.dimpleSeries#wiki-afterDraw
         this.userData = {};
 
-        // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.chart#wiki-svg
-        this.svg = dimple.newSvg(parentSelector, chartConfig.width, chartConfig.height);
         // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.chart
-        this.chart = new dimple.chart(this.svg, data);
+        this._chart = new dimple.chart(svg, data);
+        console.log(this._chart);
+
         // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.chart#wiki-setBounds
         bounds = chartConfig.bounds;
         if (bounds) {
-            this.chart.setBounds(bounds.x, bounds.y, bounds.width, bounds.height);
+            this._chart.setBounds(bounds.x, bounds.y, bounds.width, bounds.height);
         }
         // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.chart#wiki-data
         this.data = data;
         // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.chart#wiki-noFormats
         noFormats = chartConfig.noFormats;
         if (noFormats !== null && noFormats !== undefined) {
-            this.chart.noFormats = noFormats;
+            this._chart.noFormats = noFormats;
         }
         // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.chart#wiki-axes
         this.axes = [];
@@ -462,18 +466,18 @@
         }
         // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.chart#wiki-ease
         if (chartConfig.ease !== undefined) {
-            this.chart.ease = chartConfig.ease;
+            this._chart.ease = chartConfig.ease;
         }
         // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.chart#wiki-staggerDraw
         if (chartConfig.staggerDraw !== undefined) {
-            this.chart.staggerDraw = chartConfig.staggerDraw;
+            this._chart.staggerDraw = chartConfig.staggerDraw;
         }
         // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.chart#wiki-assignClass
         if (chartConfig.classes !== undefined) {
             n = chartConfig.classes.length;
             for (i = 0; i < n; i++) {
                 aClass = chartConfig.classes[i];
-                this.chart.assignClass(aClass.tag, aClass.css);
+                this._chart.assignClass(aClass.tag, aClass.css);
             }
         }
         // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.chart#wiki-defaultColors
@@ -484,16 +488,16 @@
                 color = chartConfig.defaultColors[i];
                 colors.push(new dimple.color(color.fill, color.stroke, color.opacity));
             }
-            this.chart.defaultColors = colors;
+            this._chart.defaultColors = colors;
         }
         // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.chart#wiki-customClassList
         if (chartConfig.customClassList !== undefined) {
-            this.chart.customClassList = chartConfig.customClassList;
+            this._chart.customClassList = chartConfig.customClassList;
         }
         // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.chart#wiki-setMargins
         margins = chartConfig.margins;
         if (margins !== undefined) {
-            this.chart.setMargins(margins.x, margins.y, margins.width, margins.height);
+            this._chart.setMargins(margins.x, margins.y, margins.width, margins.height);
         }
         // Help: https://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.chart#assignColor
         if (chartConfig.assignedColors !== undefined) {
@@ -501,12 +505,11 @@
             colors = {};
             for (i = 0; i < n; i++) {
                 color = chartConfig.assignedColors[i];
-                colors[color.tag] = this.chart.assignColor(color.tag, color.fill, color.stroke, color.opacity);
+                colors[color.tag] = this._chart.assignColor(color.tag, color.fill, color.stroke, color.opacity);
             }
-            this.chart.assignedColors = colors;
+            this._chart.assignedColors = colors;
         }
 
-        // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.dimpleSeries#wiki-afterDraw
         if (chartConfig.afterDraw !== undefined) {
             /*jslint evil: true */
             this.afterDraw = new Function("simpledimple", chartConfig.afterDraw);
@@ -517,10 +520,8 @@
 
     // Create the stub object
     var simpledimple = {
-        version: "1.0.0",
-        newChart: function (parentSelector, chartConfig, data) {
-            return new SimpleDimpleChart(parentSelector, chartConfig, data);
-        }
+        version: "1.1.0",
+        chart: SimpleDimpleChart
     };
 
     return simpledimple;

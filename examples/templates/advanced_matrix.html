@@ -26,7 +26,8 @@
       // Create a base chart.  This will provide the base axes and the
       // chart positioning.
       d3.json("chartconfig/advanced_matrix.json", function(chartConfig) {
-          var myChart = simpledimple.newChart("#chartContainer", chartConfig, data);
+          var svg = dimple.newSvg("#chartContainer", 590, 400);
+          var myChart = new simpledimple.chart(svg, chartConfig, data);
           // Draw the main chart
           myChart.draw();
       });

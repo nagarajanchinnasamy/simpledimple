@@ -6,7 +6,8 @@
   <script type="text/javascript">
     d3.tsv("/data/example_data.tsv", function (data) {
         d3.json("chartconfig/scatter_horizontal_lollipop.json", function(chartConfig) {
-            var myChart = simpledimple.newChart("#chartContainer", chartConfig, data);
+            var svg = dimple.newSvg("#chartContainer", 590, 400);
+            var myChart = new simpledimple.chart(svg, chartConfig, data);
             myChart.draw();
         });
     });

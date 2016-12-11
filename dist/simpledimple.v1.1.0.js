@@ -195,7 +195,7 @@
             }
             // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.dimpleAxis#wiki-autoRotateLabel
             if (config.autoRotateLabel !== undefined) {
-                dimpleAxis.floatingBarWidth = config.floatingBarWidth;
+                dimpleAxis.autoRotateLabel = config.autoRotateLabel;
             }
             // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.dimpleAxis#wiki-addGroupOrderRule
             if (config.groupOrderRules !== undefined) {
@@ -383,7 +383,7 @@
         // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.chart#wiki-setStoryboard
         this.setStoryboard = function (config) {
             // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.storyboard#wiki-onTick
-            var tickHandler, storyboard;
+            var tickHandler, storyboard, j, m, rule;
             if (config.onTick !== undefined) {
                 /*jslint evil: true */
                 tickHandler = new Function("e", config.onTick);
@@ -410,6 +410,14 @@
             if (config.fontFamily !== undefined) {
                 storyboard.fontFamily = config.fontFamily;
             }
+            // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.storyboard#wiki-addOrderRule
+            if (config.orderRules !== undefined) {
+                m = config.orderRules.length;
+                for (j = 0; j < m; j++) {
+                    rule = config.orderRules[j];
+                    storyboard.addOrderRule(rule.ordering, rule.desc);
+                }
+            }
 
             return storyboard;
         };
@@ -419,7 +427,6 @@
 
         // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.chart
         this._chart = new dimple.chart(svg, data);
-        console.log(this._chart);
 
         // Help: http://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.chart#wiki-setBounds
         bounds = chartConfig.bounds;

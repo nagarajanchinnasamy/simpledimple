@@ -1,6 +1,6 @@
 {
   "name": "simpledimple",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Dimple-js Simplified",
   "main": "dist/simpledimple.latest.js",
   "scripts": {

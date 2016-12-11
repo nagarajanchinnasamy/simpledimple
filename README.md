@@ -3,7 +3,7 @@
 
 ## Simpledimple.js ##
 
-[Simpledimple.js](http://nagarajanchinnasamy.com/simpledimple) is an opensource lightweight JavaScript thin wrapper API around **dimple**. [Simpledimple.js](http://nagarajanchinnasamy.com/simpledimple) is originally written by [Nagarajan Chinnasamy](https://github.com/nagarajanchinnasamy/) at [Mindtree](http://mindtree.com/).
+[Simpledimple.js](http://nagarajanchinnasamy.com/simpledimple) is an opensource lightweight JavaScript wrapper and extension API for **dimple**. [Simpledimple.js](http://nagarajanchinnasamy.com/simpledimple) is originally written by [Nagarajan Chinnasamy](https://github.com/nagarajanchinnasamy/) at [Mindtree](http://mindtree.com/).
 
 [dimple](http://dimplejs.org/) is a simply powerful object-oriented API for business analytics powered by [D3.js](https://d3js.org/).
 
@@ -16,6 +16,7 @@
         * Interactive tools based designing of charts
         * External storage and
         * Exchange of charts
+    * Extends dimple library to make externalized chart configuration more self contained    
 
 This wrapper API accepts the entire configuration of a chart (E.g., parameters of axis, series etc.) as a single JavaScript object and internally handles the calls to be made to [dimple](http://dimplejs.org/). Following is an example chart configuration:
 
@@ -41,11 +42,15 @@ This wrapper API accepts the entire configuration of a chart (E.g., parameters o
         }]
     };
 
-  To create a chart, you use `new simpledimple.chart` passing the chart configuration and data. Then, invoke `draw()` function on the newly created chart object to draw the chart:
+To create a chart, you use `new simpledimple.chart` passing the chart configuration and data. Then, invoke `draw()` function on the newly created chart object to draw the chart:
   
     var svg = dimple.newSvg("#chartContainer", 590, 400);
     var myChart = new simpledimple.chart(svg, chartConfig, data);
     myChart.draw();
+
+## Documentation?
+
+[Please refer to the Wiki for documentation](https://github.com/nagarajanchinnasamy/simpledimple/wiki).
 
 ## How do I load the code?
 

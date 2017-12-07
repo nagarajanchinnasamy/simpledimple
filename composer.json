@@ -1,0 +1,27 @@
+{
+	"name": "nagarajanchinnasamy/simpledimple",
+	"description": "Dimple-js Simplified. Draw dimple charts using json configuration.",
+	"authors": [
+		{
+		  "name": "Nagarajan Chinnasamy",
+		  "email": "nagarajanchinnasamy@gmail.com",
+		  "homepage": "https://github.com/nagarajanchinnasamy"
+		}
+	],
+	"keywords": [
+		"visualization",
+		"d3js",
+		"dimplejs",
+		"charting",
+		"json",
+		"analytics"
+	],
+	"type": "library",
+	"license": "MIT",
+	"minimum-stability": "stable",
+	"homepage": "http://nagarajanchinnasamy.com/simpledimple",
+	"require": {
+		"d3": "3.5.2",
+        "dimple": "2.2.0"
+	}
+}

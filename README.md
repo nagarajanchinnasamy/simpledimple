@@ -3,13 +3,7 @@
 
 ## Simpledimple.js ##
 
-[Simpledimple.js](http://nagarajanchinnasamy.com/simpledimple) is an opensource lightweight JavaScript wrapper and extension API for **dimple**. [Simpledimple.js](http://nagarajanchinnasamy.com/simpledimple) is originally written by [Nagarajan Chinnasamy](https://github.com/nagarajanchinnasamy/) at [Mindtree](http://mindtree.com/).
-
-[dimple](http://dimplejs.org/) is a simply powerful object-oriented API for business analytics powered by [D3.js](https://d3js.org/).
-
-## What does it do? ##
-
-[Simpledimple.js](http://nagarajanchinnasamy.com/simpledimple)
+[Simpledimple.js](http://nagarajanchinnasamy.com/simpledimple) is an opensource lightweight JavaScript wrapper and extension API for [dimple](http://dimplejs.org/). It
 
     * Separates the configuration of properties of charts from JavaScript code
     * Facilitates externalization of the parameters of a chart thus opening the possibilities of:
@@ -48,6 +42,18 @@ To create a chart, you use `new simpledimple.chart` passing the chart configurat
     var myChart = new simpledimple.chart(svg, chartConfig, data);
     myChart.draw();
 
+## Where can I see the demo?
+
+You can see the live demo at [examples page](http://nagarajanchinnasamy.com/simpledimple/viewer/index.html).
+
+## Is there an online tool to experiment and design my own charts?
+
+Yes. You can use the [fiddle tool](http://nagarajanchinnasamy.com/simpledimple/fiddle/index.html) to:
+
+    * Load sample or your own data
+    * Browse and load sample chart configuration and edit
+    * Verify and create your own charts
+
 ## Documentation?
 
 [Please refer to the Wiki for documentation](https://github.com/nagarajanchinnasamy/simpledimple/wiki).
@@ -65,19 +71,6 @@ If you are loading the scripts directly (as in the [examples](http://nagarajanch
   1. `simpledimple.min.js`
 
 Here is the source code of an [exmaple](https://github.com/nagarajanchinnasamy/simpledimple/blob/master/examples/area_steps_horizontal.html)
-
-## Where can I see the demo?
-
-You can see the live demo at [examples page](http://nagarajanchinnasamy.com/simpledimple/viewer/index.html).
-
-## Is there an online tool to experiment and design my own charts?
-
-Yes. You can use the [fiddle tool](http://nagarajanchinnasamy.com/simpledimple/fiddle/index.html) to:
-
-    * Load sample or your own data
-    * Browse and load sample chart configuration and edit
-    * Verify and create your own charts
-
 
 ## How can I build the code and run the tests?
 
